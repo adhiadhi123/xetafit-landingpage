@@ -46,6 +46,7 @@ xetafit-landing/
     ├── make_fizz.py          generates the hero bubble markup and writes it into index.html
     ├── props-geometry.json   water-surface / base positions the glass CSS uses
     ├── render-placement.json shadow offsets the CSS uses (written by render_product.py)
+    ├── extract_logo.py       cuts the official logo out of the brand's creative (header logo, see §3)
     └── prepare_assets.py     builds the certificate previews (its storyboard product cut-outs are no longer used)
 ```
 
@@ -67,6 +68,33 @@ Tonal steps of the same three colours, each contrast-checked against WCAG AA:
 | `--coral-soft` | `#F7A59E` | coral accent text on green (5.0:1) |
 
 Cream text is never placed directly on coral (2.8:1).
+
+**Logo.** The header on both pages shows the official XETAFIT logo:
+`assets/images/xetafit-logo.png`, 256 × 68 with a transparent background.
+No official logo file existed in the project, so `tools/extract_logo.py` cuts it
+from the brand's own 1080 px "Busy day?" creative, the best-resolution copy
+supplied. It removes only the flat near-black background, and the symbol,
+colours, wordmark, tagline and spacing are untouched. Re-composited on the
+original background, it matches the source to within JPEG noise. The white
+wordmark needs a dark ground, so the logo sits on a compact forest-green plate
+whose curve follows the header's rounded end (34 px tall on desktop, 30 px on
+phones). The footer still uses its text wordmark.
+
+**Buttons.** One system, driven by `--btn-*` tokens in `:root`:
+
+| Kind | Class | Look | Used for |
+|---|---|---|---|
+| Primary | `.btn` | forest green pill, cream text, plain arrow; **cream with green text on green surfaces** | Buy now, Add to cart, Get your 4-pack, Back to product |
+| Secondary | `.btn .btn--secondary` | transparent, 1 px outline, green text (cream on green, deep green ink on coral) | View certificate, View original certificate (PDF) |
+| Header | `.nav__product` | the primary style at header height | Product / Back to product |
+
+All buttons share the same 48 px height (44 px in the header on phones),
+padding, 600-weight 0.74 rem uppercase type with 0.12em tracking, and full
+radius. On hover **and** keyboard focus: the colour deepens over 0.24 s
+(`cubic-bezier(.22, 1, .36, 1)`), the arrow moves 4 px in its own direction,
+and primaries lift 1 px with a soft shadow. Focus also draws a 2 px ring. The
+disabled Add to cart stays muted with a not-allowed cursor. Contrast: cream on
+green is 9.2:1; secondary text on coral is 4.8:1.
 
 **Type:** DM Sans 700 for bold capital headlines; Cormorant Garamond 500/600 (with
 italics) for editorial accents, product names and numerals (always with
@@ -152,7 +180,7 @@ real touch devices; frame-rate profiling on low-end phones.
 | **Add to cart** | `#buy` → `<form class="cart">` | **Inactive by design.** The button is `disabled` and a visible note says the store is not connected. To activate: set `action` (e.g. Shopify `/cart/add`), put the **four-pack variant ID** in `name="id"`, then remove `disabled` and the `.cart-status` note. Only the four-pack may be added. |
 | **Live price / stock / delivery** | `#buy` → `<dl class="live">` | Placeholders (`.pending`). Fill server-side or via store templating. No price is hard-coded. |
 | **Customer reviews** | `#reviews` → `<ul class="review-track">` | Four labelled placeholders. Replace them with verified, permission-cleared reviews only (exact text, reviewer name as displayed, platform, date), then delete the `.dev-note`. |
-| **Logo** | nav + footer of both pages (`LOGO PLACEHOLDER`) | Text wordmark only. Swap in the official XETAFIT logo SVG. |
+| **Logo** | header of both pages | Official logo in place (raster, cut from the brand's creative; see §3). Swap `assets/images/xetafit-logo.png` for the official SVG when available. The footer still uses a text wordmark. |
 
 ### CTA plan (V9), as built
 
@@ -240,7 +268,7 @@ longer references them.
    (1024 × 1536). A real studio photo or official 3D render of the current pack,
    front-on on white at about 2000 px tall, can replace it. Re-run
    `tools/render_product.py` and every image on the page updates.
-2. **Official logo SVG.**
+2. **Official logo SVG** (the header currently uses a 256 × 68 raster cut from the brand's creative: crisp on standard screens, slightly soft on high-density ones).
 3. *(Optional)* real photography for lifestyle moments or fruit, if wanted. The site
    shows no fruit imagery of its own; the only fruit is the artwork on the pack label.
 4. Verified reviews (see §5).
