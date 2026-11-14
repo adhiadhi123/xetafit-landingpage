@@ -1,68 +1,52 @@
-/* XETAFIT motion system. CSS only, native scrolling, no snapping or scroll-jacking.
+/* XETAFIT motion system. CSS only: native scrolling, no snapping, no scroll-jacking.
 
    Layers, each on its own element so transforms never stack by accident:
-     .rv            trigger: sets --seen when it is 10vh into the viewport
-     .rv > *        entrance (time-based, plays once): opacity + transform
-     .zoom          scroll-linked zoom-in / zoom-out while it crosses the viewport: `scale`
-     .breathe       slow breathing loop after the entrance: `scale` on a nested wrapper
-     .sheen, .light, .drift   quiet ambient light and movement on existing visuals
+     .rv              trigger: sets --seen once the block is 10vh into the viewport
+     .rv > *          entrance (time-based, plays once): opacity + transform
+     .zoom            scroll-linked zoom while it crosses the viewport (`scale`)
+     .breathe         slow breathing loop after the entrance (`scale`)
+     .bigtype span    oversized lettering drifting sideways with the scroll (`translate`)
+     .sheen, .light, .drift   quiet light and movement on existing visuals
    Carbonation bubbles exist only in the hero.
 
-   Without scroll-driven animation support everything is simply visible (static).
+   Timings follow the brief: text 0.5–0.75 s, products 0.65–1 s, cards 0.55–0.85 s,
+   hover 0.18–0.3 s, all on cubic-bezier(.22, 1, .36, 1).
+   Without scroll-driven animation support every section is simply visible.
    With prefers-reduced-motion: reduce nothing moves and nothing is hidden. */
 :root {
-  --motion-heading: .65s;
-  --motion-body: .6s;
-  --motion-product: .9s;
-  --motion-photo: 1.3s;
-  --motion-interaction: .22s;
+  --m-text: .68s;
+  --m-product: .95s;
+  --m-card: .75s;
+  --m-photo: 1.25s;
 }
 
 @property --seen { syntax: "<number>"; inherits: true; initial-value: 0; }
 @keyframes seen { from { --seen: 0; } to { --seen: 1; } }
 
 /* ---- entrances ---------------------------------------------------------------- */
-@keyframes enter-up {
-  from { opacity: 0; transform: translate3d(0, 22px, 0); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-left {
-  from { opacity: 0; transform: translate3d(-32px, 0, 0); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-right {
-  from { opacity: 0; transform: translate3d(32px, 0, 0); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-zoom {             /* product compositions: settle up to full size */
-  from { opacity: 0; transform: scale(.94); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-cinema {           /* photographs inside a frame: settle down from 1.08 */
+@keyframes enter-up    { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: none; } }
+@keyframes enter-down  { from { opacity: 0; transform: translate3d(0, -16px, 0); } to { opacity: 1; transform: none; } }
+@keyframes enter-left  { from { opacity: 0; transform: translate3d(-36px, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes enter-right { from { opacity: 0; transform: translate3d(36px, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes enter-card  { from { opacity: 0; transform: translate3d(0, 34px, 0); } to { opacity: 1; transform: none; } }
+@keyframes enter-zoom  { from { opacity: 0; transform: translate3d(0, 18px, 0) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes enter-cinema {            /* photographs inside their frames: settle from 1.08 */
   from { opacity: 0; transform: scale(1.08); }
   45%  { opacity: 1; }
   to   { opacity: 1; transform: none; }
 }
-@keyframes enter-scale {            /* certificate preview */
-  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(.95); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-pop {
-  from { opacity: 0; transform: scale(.7); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-image {            /* hero product on page load */
-  from { opacity: 0; transform: translate3d(0, 18px, 0) scale(.96); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes enter-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes enter-scale { from { opacity: 0; transform: translate3d(0, 16px, 0) scale(.95); } to { opacity: 1; transform: none; } }
+@keyframes enter-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes line-up     { from { transform: translate3d(0, 108%, 0); } to { transform: none; } }
 
 /* ---- continuous ----------------------------------------------------------------- */
-@keyframes zoom-pass {
-  0%, 100% { scale: 1; }
-  50%      { scale: var(--zoom-peak, 1.035); }
-}
+@keyframes zoom-pass { 0%, 100% { scale: 1; } 50% { scale: var(--zoom-peak, 1.035); } }
+@keyframes type-drift { from { translate: var(--drift-from, 7%) 0; } to { translate: var(--drift-to, -7%) 0; } }
 @keyframes breathe { from { scale: 1; } to { scale: var(--breathe-peak, 1.02); } }
+@keyframes tab-drift {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to   { transform: translate3d(0, -9px, 0) rotate(4deg); }
+}
 @keyframes sheen-sweep {
   0%        { transform: translate3d(-100%, 0, 0); }
   26%, 100% { transform: translate3d(100%, 0, 0); }
@@ -71,10 +55,6 @@
   from { opacity: .55; transform: translate3d(-7%, -3%, 0); }
   to   { opacity: 1;   transform: translate3d(9%, 4%, 0); }
 }
-@keyframes tab-drift {
-  from { transform: translate3d(0, 0, 0) rotate(0deg); }
-  to   { transform: translate3d(0, -7px, 0) rotate(2.5deg); }
-}
 @keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
 @keyframes fizz-rise {
   0%   { opacity: 0; transform: translate3d(0, 0, 0) scale(.82); }
@@ -82,72 +62,99 @@
   62%  { opacity: calc(var(--o) * .9); }
   100% { opacity: 0; transform: translate3d(0, calc(var(--h) * -1), 0) scale(1); }
 }
-@keyframes fizz-drift {
-  from { translate: calc(var(--w) * -1) 0; }
-  to   { translate: var(--w) 0; }
+@keyframes fizz-drift { from { translate: calc(var(--w) * -1) 0; } to { translate: var(--w) 0; } }
+@keyframes nav-on { from, to { background-color: var(--cream); color: var(--ink); } }
+
+/* Section 02: reference-derived transparent layers; shared drift preserves the axis. */
+@keyframes switch-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(3px, -5px, 0); }
+  75% { transform: translate3d(-3px, 5px, 0); }
 }
-@keyframes nav-on {
-  from, to { background-color: var(--cream-3); color: var(--green-ink); }
+@keyframes switch-cap-hover {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-3px); }
+  75% { transform: translateY(3px); }
+}
+@keyframes switch-tablet-hover {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-3deg); }
+  75% { transform: translateY(4px) rotate(3deg); }
+}
+@keyframes switch-shadow {
+  0%, 100% { transform: scale(1); opacity: .65; }
+  50% { transform: scale(1.06); opacity: .5; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .switch__float { animation: switch-float 6s ease-in-out infinite; }
+  .switch__cap .switch__art { animation: switch-cap-hover 5s ease-in-out infinite; }
+  .switch__tablet .switch__art { animation: switch-tablet-hover 4.5s ease-in-out infinite; }
+  .switch__shadow { animation: switch-shadow 6s ease-in-out infinite; }
 }
 
 /* ---- entrance choice per composition (read by .rv > *) ---------------------------- */
-.switch__copy, .versus__side--old { --reveal: enter-left; }
-.switch__visual, .versus__side--new, .quality__copy { --reveal: enter-right; }
-.buy-card__media, .formula__art, .ing__art { --reveal: enter-zoom; --rv-dur: var(--motion-product); }
-.ing__art { --rv-dur: 1.1s; }
-.lifestyle-photo, .final__photo { --reveal: enter-cinema; --rv-dur: var(--motion-photo); }
-.doc { --reveal: enter-scale; --rv-dur: 1s; --rv-step: .08s; }
-.section-id { --reveal: enter-fade; --rv-dur: .55s; }
-.preparation { --rv-dur: .75s; --rv-step: .18s; }
-.buy-card__body { --rv-step: .08s; --rv-delay: .12s; }
-.review-track, .lifestyle-routines { --rv-dur: .7s; --rv-step: .1s; }
-.versus__side { --rv-dur: .75s; --rv-step: .1s; }
-.faq__list { --rv-dur: var(--motion-body); --rv-step: .07s; }
+.switch__copy { --reveal: enter-left; }
+.versus__side--old, .versus__side--new { --reveal: enter-fade; }
+.switch__visual { --reveal: enter-product-soft; }
+.versus__side--new { --rv-delay: .16s; }
+.buy-card__media, .formula__art { --reveal: enter-zoom; --rv-dur: var(--m-product); }
+.steps, .review-grid { --reveal: enter-card; --rv-dur: var(--m-card); }
+.steps { --rv-step: .14s; }
+.review-grid { --rv-step: .1s; }
+.final__photo { --reveal: enter-cinema; --rv-dur: var(--m-photo); }
+.life__photo, .ing__art { --reveal: enter-photo-soft; --rv-dur: .9s; }
+.ing__art { --rv-step: .16s; }
+.life__card { --rv-delay: .2s; }
+@keyframes enter-product-soft { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+@keyframes enter-photo-soft { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: scale(1); } }
+.doc { --reveal: enter-scale; --rv-dur: .95s; --rv-step: .08s; }
+.buy-card__body { --rv-step: .07s; --rv-delay: .14s; }
+.spec, .life__card, .quality__copy, .final__copy { --rv-step: .08s; }
+.faq__list { --rv-step: .06s; --rv-dur: .6s; }
+.formula__col { --rv-step: .12s; --rv-dur: .7s; }
+.formula__col--r { --rv-delay: .18s; }
 
-/* ---- scroll zoom peaks (product compositions that also breathe stay at ~1.05 total) - */
+/* scroll-zoom peaks: photographs 1.05, product compositions that also breathe ~1.03 */
 .zoom--photo { --zoom-peak: 1.05; }
-.hero__zoom, .buy-card__zoom, .ing__zoom, .zoom--soft { --zoom-peak: 1.03; }
+.buy-card__zoom, .ing__zoom, .zoom--soft { --zoom-peak: 1.03; }
+.bigtype--final { --drift-from: -6%; --drift-to: 6%; }    /* the two lettering bands drift in opposite directions */
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 
-  /* 01 hero, on page load */
-  .nav { animation: enter-up .65s var(--ease) both; }
-  .intro { animation: enter-up var(--motion-body) var(--ease) both; animation-delay: calc(.12s + var(--d, 0) * .12s); }
-  .intro-line { animation: enter-up var(--motion-heading) var(--ease) both; animation-delay: calc(.1s + var(--d, 0) * .1s); }
-  .intro-art { animation: enter-image .95s var(--ease) .32s both; }
-  .hero__stats .intro { animation-delay: calc(.45s + var(--d, 0) * .1s); }
-  .hero .marquee__track { animation: marquee 70s linear infinite; }
+  /* 01 hero, on page load: header, eyebrow, headline lines, product, copy, facts, CTA last */
+  .hdr { animation: enter-down .7s var(--ease) both; }
+  .intro { animation: enter-up .62s var(--ease) both; animation-delay: calc(.2s + var(--d, 0) * .09s); }
+  .intro-line { animation: line-up .78s var(--ease) both; animation-delay: calc(.12s + var(--d, 0) * .1s); }
+  .intro--last { animation-delay: 1s; }
+  .hero .marquee { animation: enter-fade 1.4s var(--ease) .5s both; }
+  .hero .marquee__track { animation: marquee 64s linear infinite; }
+
+  /* tablets elsewhere on the page drift a few pixels */
+  .drift { animation: tab-drift 4.6s ease-in-out infinite alternate; }
 
   /* hero carbonation: ~15 new bubbles a second, each on its own path and clock */
-  .hero .fizz-field { animation: enter-fade 1.6s var(--ease) .5s both; }
+  .hero .fizz-field { animation: enter-fade 1.6s var(--ease) .6s both; }
   .hero .fizz-field i {
     animation: fizz-rise var(--d) cubic-bezier(.4, .1, .75, .95) var(--t) infinite,
                fizz-drift calc(var(--d) / 2.6) ease-in-out var(--t) infinite alternate;
   }
 
-  /* ambient: breathing, product light sweeps, tablets, photo light */
-  .breathe {
-    animation: breathe var(--breathe-half, 3.4s) ease-in-out var(--breathe-delay, 1.4s) infinite alternate both;
-  }
-  .hero__breathe   { --breathe-half: 3.6s; --breathe-delay: 1.3s; }
-  .buy-card__shot  { --breathe-half: 3.2s; }
+  /* breathing (1.00 -> 1.02, 6.4–8 s a cycle), product light sweeps, photo daylight */
+  .breathe { animation: breathe var(--breathe-half, 3.4s) ease-in-out var(--breathe-delay, 1.2s) infinite alternate both; }
+  .buy-card__shot { --breathe-half: 3.2s; }
   .formula__art .breathe { --breathe-half: 3.8s; }
   .ing__tube .breathe { --breathe-half: 3.5s; }
   .final__photo .breathe { --breathe-half: 4s; }
 
-  .sheen::before { animation: sheen-sweep 10s var(--ease-io) var(--sheen-delay, 2.4s) infinite; }
+  .sheen::before { animation: sheen-sweep 10s var(--ease-io) var(--sheen-delay, 2.6s) infinite; }
+  .hero__closed .sheen { --sheen-delay: 4.8s; }       /* first sweep after the opening sequence */
   .formula__art .sheen { --sheen-delay: 4.2s; }
-  .ing__tube .sheen    { --sheen-delay: 3.4s; }
+  .ing__tube .sheen { --sheen-delay: 3.4s; }
   .buy-card__shot .sheen { --sheen-delay: 1.6s; }
 
   .light::after { animation: light-drift 14s ease-in-out infinite alternate; }
   .final__photo .light::after { animation-duration: 17s; animation-delay: -6s; }
-
-  .drift { animation: tab-drift 4.4s ease-in-out infinite alternate; }
-  .drift--b { animation-duration: 5.2s; animation-delay: -2.1s; }
-  .switch__tablet .drift { animation-duration: 4.9s; animation-delay: -1.2s; }
-  .ing__tablet .drift { animation-duration: 5.6s; animation-delay: -3s; }
 
   @supports (animation-timeline: view()) and (animation-range: entry 0% entry 85%) {
     /* trigger: --seen flips to 1 once the block is 10vh into the viewport */
@@ -156,9 +163,9 @@
       animation-timeline: view();
       animation-range: entry 10vh entry 11vh;
     }
-    /* entrance: paused until seen, then plays once at a fixed duration */
+    /* entrance: paused until seen, then plays once at a fixed duration and holds */
     .rv > * {
-      animation: var(--reveal, enter-up) var(--rv-dur, var(--motion-heading)) var(--ease) both paused;
+      animation: var(--reveal, enter-up) var(--rv-dur, var(--m-text)) var(--ease) both paused;
       animation-delay: calc(var(--rv-delay, 0s) + var(--n, 0) * var(--rv-step, .09s));
     }
     .rv > :nth-child(2) { --n: 1; }
@@ -167,25 +174,17 @@
     .rv > :nth-child(5) { --n: 4; }
     .rv > :nth-child(6) { --n: 5; }
     .rv > :nth-child(n+7) { --n: 6; }
-    .buy-card__media > .reveal, .ing__art > .ing__photo, .formula__art > .tube { transform-origin: 50% 85%; }
+    .buy-card__media > .reveal, .formula__art > .tube { transform-origin: 50% 85%; }
+    .buy-card__body > .cart { --n: 8; }          /* the purchase action arrives last */
 
-    /* 05 benefits: icon first, then heading and description, fact by fact */
-    .formula__col.rv > li { animation: none; }
-    .formula__col.rv .benefit-mark > svg {
-      animation: enter-pop .6s var(--ease) calc(var(--n, 0) * .12s) both paused;
-    }
-    .formula__col.rv .bfact > div {
-      animation: enter-up .65s var(--ease) calc(.12s + var(--n, 0) * .12s) both paused;
-    }
+    /* safety information is never hidden behind an animation */
+    .spec > .notice { animation: none; }
 
     /* breathing starts after the entrance */
     .rv .breathe { animation-play-state: paused; }
 
     @container style(--seen: 1) {
-      .rv > *,
-      .rv .breathe,
-      .formula__col.rv .benefit-mark > svg,
-      .formula__col.rv .bfact > div { animation-play-state: running; }
+      .rv > *, .rv .breathe { animation-play-state: running; }
     }
 
     /* scroll-linked zoom: 1 -> peak at the centre of the viewport -> 1 */
@@ -194,10 +193,64 @@
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
     }
+
+    /* oversized lettering drifts sideways while its section crosses the viewport */
+    .bigtype span {
+      animation: type-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
   }
 }
 
-/* Navigation keeps the current section highlight where supported. */
+/* ==== 01 HERO: ORIGINAL PACKSHOT FALLBACK =====================================
+   Authentic matching open-mouth and detached-cap renders are not supplied.
+   Keep the original closed product visible; do not simulate an opening using
+   the geometrically constructed mouth or cropped cap. Tablets start in their
+   final composition, with no implied emergence through a closed lid.
+   The diagonal pose is a presentation transform, not a genuine 3D side render. */
+.hero__product {
+  transform: perspective(1000px) rotateZ(-12deg);
+  transform-origin: 50% 50%;
+}
+.hero__well, .hero__open, .hero__cap { display: none; }
+@keyframes hero-packshot-enter {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes hero-packshot-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(8px, -6px, 0) rotate(1.5deg); }
+  75% { transform: translate3d(-8px, 6px, 0) rotate(-1.5deg); }
+}
+@keyframes hero-tablet-left {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(-8px, -12px, 0) rotate(-3deg); }
+  75% { transform: translate3d(6px, 8px, 0) rotate(3deg); }
+}
+@keyframes hero-tablet-right {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(10px, 12px, 0) rotate(3deg); }
+  75% { transform: translate3d(-6px, -10px, 0) rotate(-3deg); }
+}
+@keyframes hero-shadow-float {
+  0%, 100% { opacity: .95; transform: scale(1); }
+  50% { opacity: .74; transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero__closed {
+    animation: hero-packshot-enter .7s var(--ease) both,
+               hero-packshot-float 6s ease-in-out .7s infinite;
+  }
+  .hero__ground .tube__shadow {
+    animation: hero-shadow-float 6s ease-in-out .7s infinite;
+    transform-origin: 50% 40%;
+  }
+  .tab--1 .tab__bob { animation: hero-tablet-left 4.8s ease-in-out infinite; }
+  .tab--2 .tab__bob { animation: hero-tablet-right 5.5s ease-in-out infinite; }
+}
+
+/* The header link of the section in view is highlighted (cream capsule), as in the reference. */
 @supports (timeline-scope: --a) and (animation-range: cover 0% cover 100%) {
   @media (min-width: 960px) and (prefers-reduced-motion: no-preference) {
     body { timeline-scope: --v-how, --v-benefits, --v-ingredients, --v-reviews, --v-quality, --v-faq; }
@@ -207,49 +260,31 @@
     #reviews { view-timeline: --v-reviews block; }
     #quality { view-timeline: --v-quality block; }
     #faq { view-timeline: --v-faq block; }
-    .nav__links a { animation: nav-on linear none; animation-range: cover 50vh cover calc(100% - 50vh); }
-    .nav__links a[href="#how"] { animation-timeline: --v-how; }
-    .nav__links a[href="#benefits"] { animation-timeline: --v-benefits; }
-    .nav__links a[href="#ingredients"] { animation-timeline: --v-ingredients; }
-    .nav__links a[href="#reviews"] { animation-timeline: --v-reviews; }
-    .nav__links a[href="#quality"] { animation-timeline: --v-quality; }
-    .nav__links a[href="#faq"] { animation-timeline: --v-faq; }
+    .hdr__nav a { animation: nav-on linear none; animation-range: cover 50vh cover calc(100% - 50vh); }
+    .hdr__nav a[href="#how"] { animation-timeline: --v-how; }
+    .hdr__nav a[href="#benefits"] { animation-timeline: --v-benefits; }
+    .hdr__nav a[href="#ingredients"] { animation-timeline: --v-ingredients; }
+    .hdr__nav a[href="#reviews"] { animation-timeline: --v-reviews; }
+    .hdr__nav a[href="#quality"] { animation-timeline: --v-quality; }
+    .hdr__nav a[href="#faq"] { animation-timeline: --v-faq; }
   }
 }
+
+/* FAQ answers open and close smoothly where ::details-content is supported */
 @supports (interpolate-size: allow-keywords) and selector(::details-content) {
   @media (prefers-reduced-motion: no-preference) {
     .faq__list { interpolate-size: allow-keywords; }
-    .qa::details-content { height: 0; overflow: clip; transition: height .4s var(--ease), content-visibility .4s allow-discrete; }
+    .qa::details-content { height: 0; overflow: clip; transition: height .42s var(--ease), content-visibility .42s allow-discrete; }
     .qa[open]::details-content { height: auto; }
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .hero .fizz-field, .sheen, .light::after { display: none; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
-@media print {
-  .nav, .marquee, .fizz-field, .skip-link, .sheen, .light::after { display: none !important; }
-  .sec + .sec, .site-footer { margin-top: 0; border-radius: 0; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-}
 
-/* Product suspension runs below the entrance wrapper, keeping its shadow grounded. */
-@keyframes hero-suspend {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -12px, 0); }
-}
-@keyframes hero-contact-shadow {
-  0%, 100% { transform: scale(1); opacity: .9; }
-  50% { transform: scale(1.055); opacity: .69; }
-}
-@keyframes hero-tablet-breathe {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -3px, 0); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero__breathe { animation: none; }
-  .hero__float { animation: hero-suspend 5.6s ease-in-out 1.3s infinite; }
-  .hero__ground .tube__shadow { animation: hero-contact-shadow 5.6s ease-in-out 1.3s infinite; transform-origin: center; }
-  .hero .tab img.drift { animation: hero-tablet-breathe 6.8s ease-in-out 1.3s infinite; }
-  .hero .tab img.drift--b { animation-duration: 7.6s; animation-delay: -.8s; }
+@media print {
+  .hdr, .menu, .marquee, .fizz-field, .skip-link, .sheen, .light::after, .bigtype, .cross { display: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

@@ -1,14 +1,15 @@
-# XETAFIT — Landing Page (Redesign)
+# XETAFIT — Landing Page
 
 **Fizz your way to wellness.** A single-product landing page for XETAFIT Apple
-Cider Vinegar Effervescent Tablets, Pack of 4. Built with **HTML and CSS only**:
-no JavaScript and no frameworks.
+Cider Vinegar Effervescent Tablets, Pack of 4. Built with **HTML and CSS**, plus a small JavaScript controller for the Benefits scroll animation. No frameworks or build step.
 
 The copy follows `XETAFIT_Landing_Page_Content_V9_Benefits_Update.pdf` (Content V9)
-scene by scene, and the CTA plan matches it exactly. The visual design follows
-the six-frame storyboard: colour-block sheets, a floating pill navigation,
-rounded cream product containers, centred product compositions with numbered
-facts, and giant translucent editorial type.
+and the CTA plan matches it. The **visual and motion system** is a rebuild modelled
+on the supplied beverage-site reference recording: saturated red page, deep
+burgundy contrast panels, warm cream product cards, golden purchase buttons,
+heavy sans headlines with an editorial serif, a floating capsule header, giant
+low-opacity serif lettering and numbered editorial layouts. Only XETAFIT's own
+logo, packaging and photography are used; nothing from the reference brand.
 
 ---
 
@@ -23,8 +24,8 @@ No build step.
   python -m http.server 8080      # then open http://localhost:8080
   ```
 
-Fonts (DM Sans, Cormorant Garamond, Inter) load from Google Fonts. Offline, the
-page falls back to system fonts.
+Fonts (DM Sans, Cormorant Garamond) load from Google Fonts. Offline, the page
+falls back to system fonts.
 
 ## 2. Project structure
 
@@ -33,145 +34,189 @@ xetafit-landing/
 ├── index.html            12 sections (V9 order) + footer
 ├── certificate.html      Certificate of Analysis details (batch NX3649)
 ├── css/
-│   ├── style.css         design tokens, components, mobile-first section layouts, certificate page
-│   ├── responsive.css    tablet / desktop compositions (640 · 760 · 960 · 1100 · 1440 px)
-│   └── animations.css    all motion: hero entrance + carbonation, reveals, scroll zoom, breathing, ambient light, nav highlight
+│   ├── style.css         tokens, components, header + menu, phone-first section layouts, certificate page
+│   ├── responsive.css    tablet / desktop compositions (640 · 760 · 960 · 1100 · 1440 px, short desktops)
+│   └── animations.css    all motion: hero sequence, reveals, scroll zoom, lettering drift, breathing, nav highlight
 ├── assets/
-│   ├── source/           xetafit-tube-front.png — the studio packshot every product image is built from
-│   ├── images/           product, tablet, glass, prop and bubble renders; certificate previews
+│   ├── source/           xetafit-tube-front.png: the studio packshot every product image is built from
+│   ├── images/           product, tablet and bubble renders, photographs, certificate previews
 │   └── documents/        original COA PDF (byte-identical copy)
 └── tools/
-    ├── render_product.py     builds all product + tablet renders from assets/source (see §5b)
-    ├── render_props.py       ray-traces the glass, drink, shot glass, plinth and bubbles (see §5c)
-    ├── make_fizz.py          generates the hero bubble markup and writes it into index.html
-    ├── props-geometry.json   water-surface / base positions the glass CSS uses
-    ├── render-placement.json shadow offsets the CSS uses (written by render_product.py)
-    ├── extract_logo.py       cuts the official logo out of the brand's creative (header logo, see §3)
-    └── prepare_assets.py     builds the certificate previews (its storyboard product cut-outs are no longer used)
+    ├── render_product.py      builds all product + tablet renders from assets/source (see §5b)
+    ├── render_props.py        ray-traces glass/prop renders and the hero bubble sprites (see §5c)
+    ├── compose_comparison.py  places the tube render into the finished-drink photo for 08 (see §5c)
+    ├── build_hero_layers.py   the hero opening layers: cap, open tube, inner wall, tablet frame strips (see §4b)
+    ├── make_fizz.py           generates the hero bubble markup and writes it into index.html
+    ├── make_responsive.py     smaller copies of the large images for srcset
+    ├── extract_logo.py        cuts the official logo out of the brand's creative (see §3)
+    └── prepare_assets.py      builds the certificate previews
 ```
 
 ## 3. Design system
 
-| Token | Value | Use |
-|---|---|---|
-| `--coral` | `#F46B62` Grapefruit Coral | hero and promotional sheets |
-| `--green` | `#174D3A` Deep Forest Green | headlines, contrast sections, buttons |
-| `--cream` | `#FFF8E9` Warm Cream | content sheets, product containers, cards |
+**Colour.** Sampled from the reference frames, then contrast-checked (WCAG):
 
-Tonal steps of the same three colours, each contrast-checked against WCAG AA:
-
-| Token | Value | Why it exists |
-|---|---|---|
-| `--green-ink` | `#0F3127` | body text on coral (4.8:1). Forest green on coral is 3.3:1, so it is used only for large headlines. |
-| `--coral-deep` | `#C2423B` | the inset Benefits panel; cream text on it is 4.8:1 |
-| `--coral-ink` | `#B83F38` | coral-coloured text on cream (5.2:1) |
-| `--coral-soft` | `#F7A59E` | coral accent text on green (5.0:1) |
-
-Cream text is never placed directly on coral (2.8:1).
-
-**Logo.** The header on both pages shows the official XETAFIT logo:
-`assets/images/xetafit-logo.png`, 256 × 68 with a transparent background.
-No official logo file existed in the project, so `tools/extract_logo.py` cuts it
-from the brand's own 1080 px "Busy day?" creative, the best-resolution copy
-supplied. It removes only the flat near-black background, and the symbol,
-colours, wordmark, tagline and spacing are untouched. Re-composited on the
-original background, it matches the source to within JPEG noise. The white
-wordmark needs a dark ground, so the logo sits on a compact forest-green plate
-whose curve follows the header's rounded end (34 px tall on desktop, 30 px on
-phones). The footer still uses its text wordmark.
-
-**Buttons.** One system, driven by `--btn-*` tokens in `:root`:
-
-| Kind | Class | Look | Used for |
+| Token | Value | Use | Contrast |
 |---|---|---|---|
-| Primary | `.btn` | forest green pill, cream text, plain arrow; **cream with green text on green surfaces** | Buy now, Add to cart, Get your 4-pack, Back to product |
-| Secondary | `.btn .btn--secondary` | transparent, 1 px outline, green text (cream on green, deep green ink on coral) | View certificate, View original certificate (PDF) |
-| Header | `.nav__product` | the primary style at header height | Product / Back to product |
+| `--red` | `#DF1635` | page background, open sections, the stages behind product renders | white text 4.9:1 |
+| `--burgundy` | `#AE0E29` | contrast panels (02, 05, 08, 10), lifestyle card, final card, safety notes | white 7.3:1, gold 4.5:1 |
+| `--burgundy-deep` | `#A3071E` | header capsules, footer | white 8.1:1 |
+| `--cream` | `#FDF2E3` | product container, step / review / comparison cards, cream panels (06, 11) | ink 17:1 |
+| `--gold` | `#FDAB1C` | purchase buttons only (Buy now, Add to cart, Get your 4-pack) | ink text 9.9:1 |
+| `--gold-hi` | `#FAC53C` | italic headline accents, numerals, labels on burgundy | 3.1:1 on red: large type only |
+| `--ink` | `#1E0D09` | text on cream, logo plate, small badges | |
+| `--ink-soft` / `--red-ink` | `#6B4A40` / `#B50F2C` | secondary text / red accents on cream | 7.1:1 / 6.1:1 |
 
-All buttons share the same 48 px height (44 px in the header on phones),
-padding, 600-weight 0.74 rem uppercase type with 0.12em tracking, and full
-radius. On hover **and** keyboard focus: the colour deepens over 0.24 s
-(`cubic-bezier(.22, 1, .36, 1)`), the arrow moves 4 px in its own direction,
-and primaries lift 1 px with a soft shadow. Focus also draws a 2 px ring. The
-disabled Add to cart stays muted with a not-allowed cursor. Contrast: cream on
-green is 9.2:1; secondary text on coral is 4.8:1.
+Rules: small text on red is always white (cream is 4.4:1); gold text on red is only
+used at headline sizes. The green-and-white packaging is never recoloured: its
+contrast with the red is the point.
 
-**Type:** DM Sans 700 for bold capital headlines; Cormorant Garamond 500/600 (with
-italics) for editorial accents, product names and numerals (always with
-lining figures); Inter 400/500/600 for body text and labels.
+**Type.** DM Sans 800 capitals for headlines (tight tracking), with an italic
+Cormorant Garamond accent in gold (`.h2 em`). Editorial panels use all-serif
+capitals (`.h2--serif`: Benefits, Lifestyle). Cormorant also sets product names,
+step names, numerals and the giant background lettering (always lining figures).
+DM Sans 400–700 for body, labels and buttons. All sizes use `clamp()`. The hero
+headline is one line from 1100 px up, two lines on tablets, three on phones.
 
-**Section sheets:** every section after the hero slides over the previous one
-with rounded top corners (`.sec + .sec`). That overlap is the colour transition
-between sections. Themes (`.sec--coral`, `.sec--cream`, `.sec--green`) set
-the colour variables that every component reads.
+**Surfaces.** The page is red. A section is either *open* (on the red) or a
+*panel*: a rounded burgundy or cream block inset 8–14 px from the page edge, so a
+strip of red shows between neighbouring blocks, as in the reference. Each surface
+sets `--fg / --head / --em / --soft / --line / --focus`, and every component reads
+those, so a component works on any surface.
 
-| # | Section | Sheet | Composition |
+| # | Section | Surface | Composition |
 |---|---|---|---|
-| 01 | Hero | coral | one-line headline (V9), product centred between copy and facts, giant translucent type |
-| 02 | The switch | cream | editorial copy + coral product stage with the "old way" card |
-| 03 | Product + purchase | coral | cream product container; the pack image breaks out of the top |
-| 04 | How it works | green | three photographed preparation stages: drop, fizz, sip |
-| 05 | Benefits | coral (deep panel) | tube centred, six numbered benefits either side |
-| 06 | Ingredients | cream | coral product photo + "per tablet" fact label + sodium notice |
-| 07 | Lifestyle | green | lifestyle photograph + three routine moments |
-| 08 | Comparison | cream | split "Liquid ACV vs XETAFIT" panel |
-| 09 | Reviews | coral | placeholder review cards (verified reviews only) |
-| 10 | Test report | green | certificate preview + batch details |
-| 11 | FAQ | cream | sticky heading + always-visible safety card + accordion |
-| 12 | Final | coral | green card: headline, Buy Now, four-pack-and-drink photograph |
+| 01 | Hero | red | one-line headline; copy + CTA · tube with two tablets · three facts; "Fizz. Sip. Repeat." marquee behind the tube |
+| 02 | The switch | burgundy panel | copy + gold check list; tilted tube on a red stage with the cream "old way" card |
+| 03 | Product + purchase | red | giant "Pack of 4 · 60 Tablets" lettering behind one large cream container: pack image left, purchase column right |
+| 04 | How it works | red | three cream cards with the photographed drop / fizz / sip stages and dark number badges |
+| 05 | Benefits | burgundy panel | tube centred, six benefits with gold serif numerals either side, gold CTA |
+| 06 | Ingredients | cream panel | tube on a red stage with "500 mg" lettering; "Per tablet" facts label with the sodium notice |
+| 07 | Lifestyle | red | full campaign photograph with a burgundy card overlapping its lower left |
+| 08 | Comparison | burgundy panel | cream card (liquid ACV) vs red card (XETAFIT), matching cream-studio photographs, gold "vs" disc |
+| 09 | Reviews | red | four cream placeholder cards (verified reviews only), gold CTA |
+| 10 | Quality | burgundy panel | certificate preview on a paper stack + batch details, View certificate |
+| 11 | FAQ | cream panel | heading + always-visible safety card; native `<details>` list with hairline dividers |
+| 12 | Final | red | burgundy card: headline, Buy now, four-pack photograph breaking out of the card top |
+
+**Header.** Three floating capsules: the official logo on a near-black plate
+(its orange mark is 1.4:1 on the red and 5.6:1 on the plate, so the plate is
+needed), a centred burgundy navigation group whose active link turns cream as
+you scroll, and on the right a certificate icon plus the cream **Product** pill.
+Below 960 px the navigation becomes a **Menu** capsule that opens a full-height
+burgundy menu. It is CSS only: the menu shows while `#menu` is the URL target,
+and following any link inside it changes the target, so it closes by itself.
+Opening it does not move the page.
+
+**Buttons.** Compact capsules with a small arrow, 42 px (50 px for `.btn--lg`):
+`.btn--gold` purchase, `.btn--cream` information, `.btn--ghost` outline on dark.
+Hover and keyboard focus: the colour lightens over 0.24 s, the button lifts 1 px
+and the arrow moves 3 px. The disabled Add to cart is a muted cream with a
+not-allowed cursor.
 
 ## 4. Motion (CSS only)
 
-Native scrolling: no snapping, no scroll-jacking, no JavaScript. Anchor links
-scroll smoothly when motion is allowed. Easing is `cubic-bezier(.22, 1, .36, 1)`
-throughout, and only `transform`, `scale`, `translate` and `opacity` animate.
+Native scrolling: no snapping, no scroll-jacking, no JavaScript. Easing is
+`cubic-bezier(.22, 1, .36, 1)` throughout; only `transform`, `scale`,
+`translate` and `opacity` animate.
 
 | Motion | Where | How |
 |---|---|---|
-| Carbonation | **hero only** | 104 rendered bubbles (60% 4–5 px, 30% 7–9 px, 10% 11–14 px), about **15 new bubbles a second** (about 10 on phones, where every third is hidden). Each has its own start height (weighted to the lower and middle hero), rise distance, speed (larger bubbles rise faster), sideways drift and peak opacity. Five loose chains rise from fixed "nucleation points", like a real glass. Bubbles fade in where they start and fade out towards the top. They sit behind all content, never block clicks, and are clipped to the hero. |
-| Hero entrance | 01 | on page load: headline lines, product, supporting text, CTA and facts, staggered |
-| Section entrances | every section | played **once** when a block is 10vh into the viewport (see below). Text 0.55–0.75 s fade-up; products 0.9–1.1 s zoom-in (0.94 → 1); photographs 1.3 s cinematic settle (1.08 → 1); certificate 1 s scale-in. The switch slides its two halves in from left and right, the comparison its two columns from opposite sides. Preparation steps, benefits (icon first, then text), review cards and FAQ rows follow each other. Review cards and FAQ rows never zoom. |
-| Scroll-linked zoom | hero, product, how it works, ingredients, lifestyle, comparison, certificate, final | `scale` follows the element's position: 1.00 entering → peak at the centre of the viewport → 1.00 leaving. Peak 1.035 for product images, 1.05 for photographs, 1.03 where the image also breathes. Photographs zoom **inside** their rounded frames, so nothing spills onto the content around them. The hero tube is anchored near its cap, so it never grows into the headline. |
-| Breathing | hero tube + tablets, four-pack, benefits tube, ingredients tube, final photograph | 1.00 → 1.02 → 1.00, 6.4–8 s per cycle, starting after the entrance. Lives on its own nested wrapper, so scroll zoom × breathing never exceeds about 1.05. |
-| Product light | hero, product, benefits and ingredients renders | a soft band of light sweeps across the render every 10 s, masked to the render's own silhouette |
-| Ambient | tablets (hero, switch, ingredients); lifestyle and final photographs | tablets drift a few pixels; a slow daylight shift moves across the two campaign photographs |
-| Marquee | 01 | "Drop. Fizz. Sip." at 12% opacity, 70 s seamless right-to-left loop, below the CTA and facts |
-| Hover | buttons, cards, certificate | buttons 0.22 s; cards lift; the certificate straightens |
-| FAQ / Nav | 11 / nav | smooth open and close where `::details-content` is supported; the link of the section in view is highlighted |
+| Hero sequence | 01, on load | header drops in; headline lines rise out of masks one after another; copy and facts follow; the Buy now row arrives last |
+| Product opening | 01, on load, once | the tube stands upright and settles; its cap lifts fully clear, two tablets come out one after the other, the cap closes (see §4b) |
+| Hero idle | 01, from 3.3 s | the tube floats 8 px on a 6 s cycle over a floor shadow that widens and softens as it rises; each tablet floats 8–13 px on its own clock, independently of the tube |
+| Marquee | 01 | "Fizz. Sip. Repeat." in giant serif at 13 % white, 64 s seamless right-to-left loop, behind the tube, clear of the copy and facts |
+| Carbonation | 01 only | 104 rendered bubbles, about 15 new a second (about 10 on phones) |
+| Section entrances | every section | play **once** when a block is 10vh into view. Text 0.68 s fade-up, staggered; products 0.95 s (0.97 → 1); cards 0.75 s rise, staggered; photographs 1.25 s settle inside their frames (1.08 → 1); the two comparison cards slide in from opposite sides; Add to cart arrives last in the product card |
+| Scroll-linked zoom | photographs and product compositions (not the hero tube, which stays at 1:1 for a sharp label) | `scale` 1.00 entering → peak at mid-viewport → 1.00 leaving: 1.05 for photographs (inside their rounded frames), 1.03 for compositions that also breathe |
+| Lettering drift | 03, 12 | the giant background lettering slides sideways with the scroll, the two bands in opposite directions |
+| Breathing | pack, benefits tube, ingredients tube, final photograph | 1.00 → 1.02, 6.4–8 s a cycle, starting after the entrance, on its own nested wrapper |
+| Light | product renders, campaign photographs | a soft light band sweeps each render every 10 s (masked to its silhouette); a slow daylight shift over the photos |
+| Hover | buttons, header, cards, certificate | buttons 0.24 s; cards lift 3–4 px; the certificate straightens |
+| Navigation / FAQ | header / 11 | the link of the section in view becomes a cream capsule; answers open and close smoothly where `::details-content` is supported |
 
-**One transform, one element.** Each visual is nested so that no two animations
-fight over the same property: the `.rv` trigger holds the composition, `.reveal`
-(or the trigger's direct child) plays the entrance, `.zoom` follows the scroll,
-and `.breathe` loops. The sheen, light and drift layers sit inside those.
+**One transform, one element.** `.rv` triggers, its children play the entrance,
+`.zoom` follows the scroll, `.breathe` loops. **"Play once when seen" without
+JavaScript:** `.rv` runs a scroll-driven animation (`animation-timeline: view()`)
+whose only job is to set the registered property `--seen` to 1. The children's
+time-based entrances start paused, and `@container style(--seen: 1)` sets them
+running, so they finish and hold even if you stop scrolling.
 
-**"Play once when seen" without JavaScript.** A trigger (`.rv`) runs a
-scroll-driven animation (`animation-timeline: view()`) whose only job is to set
-the registered property `--seen` to `1`. Its children carry normal time-based
-entrances that start *paused*, and `@container style(--seen: 1)` switches them to
-*running*. They then hold their last frame, so text is never left half-faded
-when you stop scrolling.
-
-**Watch out:** an element with `overflow: hidden` is a scroll container, and
-`view()` inside it tracks that box instead of the page. Frames that hold zooming
-images therefore clip with `overflow: clip`.
-
-### What each browser gets
+**Watch out:** `overflow: hidden` makes a scroll container, and `view()` inside it
+would track that box instead of the page. Frames around zooming images use
+`overflow: clip`.
 
 | Situation | Result |
 |---|---|
 | Chrome / Edge 115+, Safari 26+ | full experience |
-| Browsers without scroll-driven animations (e.g. current Firefox) | every section visible at once, no scroll zoom; hero entrance, bubbles, breathing and light sweeps still run |
-| `prefers-reduced-motion: reduce` | no animation at all: no bubbles, light sweeps, breathing or zoom; no smooth scrolling; all content visible |
+| Browsers without scroll-driven animations (e.g. current Firefox) | every section visible at once, no scroll zoom or drift; the hero sequence, marquee, bubbles, floating and breathing still run |
+| `prefers-reduced-motion: reduce` | no animation, no bubbles, no smooth scrolling; everything visible |
 
-Essential information (sodium, precautions, the safety card) is never hidden
-behind animation or interaction.
+Safety information (the sodium notice, the safety card) is never animated or hidden.
 
-**Tested** in Chrome 157 (headless, DevTools protocol) at 1440×900, 1280×720 and
-390×844 (mobile emulation). Checks covered: the zoom scale at three scroll
-positions per visual, entrances caught mid-play and settled, every revealed
-element at full opacity afterwards, the light sweep frame by frame, reduced
-motion, and no horizontal overflow. **Not yet tested:** Safari, Firefox, Edge and
-real touch devices; frame-rate profiling on low-end phones.
+**Tested** in Chrome 157 (headless, DevTools protocol) at 1920×1080, 1440×900,
+1280×720, 1024×768, 768×1024 and 390×844. Results: no horizontal overflow on
+either page; the headline never collides with the tube; the hero facts and CTA
+stay clear of the marquee; all 83 revealed elements reach full opacity after
+scrolling; zoom measured at 1.00 / 1.05 / 1.00; the menu opens without moving the
+page and closes on navigation; reduced motion leaves zero running animations.
+**Not yet tested:** Safari, Firefox, real touch devices, frame-rate profiling on
+low-end phones.
+
+### 4b. The hero product opening (CSS only, plays once)
+
+| Time | What happens |
+|---|---|
+| 0–0.6 s | the closed tube stands upright and settles 6 px onto its floor shadow, which forms underneath |
+| 0.6–1.3 s | the cap unseats and lifts fully clear (about 14 % of the art height, 4° tilt), then hovers over the open mouth; both tablets sit deep, so the mouth reads dark and open |
+| 1.3–2.0 s | tablet 1 rises out of the opening behind the front lip, glides left above the rim, then floats down to its place (settled at 2.3 s) |
+| 2.0–2.7 s | tablet 2 (one tablet lower in the tube) rises out, glides right above the rim, then floats down to the lower right (settled at 3.25 s) |
+| 2.7–3.3 s | the cap comes back down, aligns with the mouth and seats; the closed tube takes over again |
+| 3.3 s on | idle floating: tube 8 px / 6 s; tablets 9–13 px / 6.4 s and 8–12 px / 7.2 s (scaled with the art), independent of the tube; each tablet starts as it lands |
+
+The flight paths were checked frame by frame against the real layer masks: once a
+tablet is in front of the tube it never overlaps the tube wall, the cap or the other
+tablet, and below the rim it keeps at least 2 % of the art height from the tube's sides.
+
+**Layers** (`tools/build_hero_layers.py`, about 3 minutes; `--tubes` skips the tablets).
+All tube layers share one 360 × 1369 canvas, so they register exactly:
+
+| File | What it is |
+|---|---|
+| `hero-tube.webp`, `hero-tube-190.webp` | the closed tube at full source resolution, plus a pre-scaled copy for 1× screens (`srcset`) |
+| `hero-cap.webp` | the cap alone, cut along the real cap/label seam, so it is pixel-identical to the cap on the closed tube |
+| `hero-tube-open.webp` | the tube without its cap: label, front wall and front lip; the opening itself is transparent |
+| `hero-tube-inner.webp` | what is seen through the opening: the far half of the rim and the shaded inner wall |
+| `hero-tablet-1.webp`, `hero-tablet-2.webp` | 16 ray-traced frames each (320 px), from lying flat in the tube to the resting angle; CSS steps through them in flight |
+
+The source photo never shows the tube without its cap, so the open state is built
+from geometry, not invented artwork: the camera elevation (8.2°) is measured from
+the cap's top ellipse, the opening is that ellipse at the body radius, the label's
+own top green band continues up to the rim, and the rim and inner wall use the
+studio shading measured on the white label paper. No printed detail is created or
+changed. The tablets are the same 3D model, seed and spin as `tablet-a/b`, sized to
+fit the tube (radius 0.89 × its inner radius).
+
+**Stacking** inside `.hero__product`, back to front: inner wall (`.hero__well`) ·
+tablets while inside (z-index 2) · open tube · closed tube · cap · tablets once their
+lowest edge clears the front lip (z-index 6). Horizontal and vertical motion run on
+separate wrappers (`.tab` and `.tab__y`), so each flight path is a smooth curve; the
+idle bob (`.tab__bob`) and the frame strip (`.tab__img`) are nested inside. The idle
+float of the tube runs on `.hero__closed` (the only tube layer visible after 3 s), so the
+tablets drift independently instead of riding along with the tube. The lifted cap
+hovers above both tablet paths and never touches them. All
+distances are in `cqh` (1 % of the art height), so the sequence scales with every
+breakpoint and never reaches the headline, CTA or facts.
+
+**Sharpness.** The tube is no longer rotated or scroll-zoomed in the hero (both made
+the browser resample the label). The packshot itself is 1024 × 1536 and the tube in
+it is about 360 × 1370 px. That is enough for the hero at 2× pixel density, but a
+**studio render of the tube at about 2000 px tall** would be the next step up, and
+would rebuild every layer with `python tools/build_hero_layers.py`.
+
+**Fallbacks.** Reduced motion: no sequence, the closed tube and both tablets are
+shown at their final positions, nothing floats. The opening layers are preloaded;
+the closed tube is always the base state, so the product never stays hidden.
 
 ## 5. Integration points (search the HTML for `INTEGRATION POINT`)
 
@@ -180,7 +225,7 @@ real touch devices; frame-rate profiling on low-end phones.
 | **Add to cart** | `#buy` → `<form class="cart">` | **Inactive by design.** The button is `disabled` and a visible note says the store is not connected. To activate: set `action` (e.g. Shopify `/cart/add`), put the **four-pack variant ID** in `name="id"`, then remove `disabled` and the `.cart-status` note. Only the four-pack may be added. |
 | **Live price / stock / delivery** | `#buy` → `<dl class="live">` | Placeholders (`.pending`). Fill server-side or via store templating. No price is hard-coded. |
 | **Customer reviews** | `#reviews` → `<ul class="review-track">` | Four labelled placeholders. Replace them with verified, permission-cleared reviews only (exact text, reviewer name as displayed, platform, date), then delete the `.dev-note`. |
-| **Logo** | header of both pages | Official logo in place (raster, cut from the brand's creative; see §3). Swap `assets/images/xetafit-logo.png` for the official SVG when available. The footer still uses a text wordmark. |
+| **Logo** | header and footer of both pages | Official logo in place (256 × 68 raster cut from the brand's creative by `tools/extract_logo.py`). Swap `assets/images/xetafit-logo.png` for the official SVG when available. |
 
 ### CTA plan (V9), as built
 
@@ -190,11 +235,11 @@ real touch devices; frame-rate profiling on low-end phones.
 | 03 Product | Add to cart | store (inactive until connected) |
 | 05 Benefits | Get your 4-pack | `#buy` |
 | 09 Reviews | Get your 4-pack | `#buy` |
-| 10 Test report | View certificate | `certificate.html` (which links the original PDF) |
+| 10 Quality | View certificate | `certificate.html` (which links the original PDF) |
 | 12 Final | Buy now (+ Pack of 4 card) | `#buy` |
 
-The navigation has no Buy Now button, because V9 allows Buy Now only in scenes
-01 and 12. Its right-hand pill is the "Product" navigation link.
+The header has no Buy Now button, because V9 allows Buy Now only in scenes
+01 and 12. Its right-hand pill is the "Product" navigation link to `#buy`.
 
 ## 5b. Product renders (one master asset, reused everywhere)
 
@@ -211,12 +256,12 @@ python tools/render_product.py my-photo.png    # rebuild from a different packsh
 
 | File | What it is | Used in |
 |---|---|---|
-| `tube-front.webp` | master front view with a geometric anti-aliased matte (no white fringe) | hero, benefits, lifestyle |
-| `tube-angle.webp` | the same tube turned 24° on its axis: label re-projected on a 3D cylinder under the same studio light | ingredients, lifestyle, reviews |
-| `tube-tilt.webp` | the turned tube leaning 24° | the switch, lifestyle |
+| `tube-front.webp` | master front view with a geometric anti-aliased matte (no white fringe) | 05 benefits, the hero light-sweep mask |
+| `tube-angle.webp` | the same tube turned 24° on its axis: label re-projected on a 3D cylinder under the same studio light | 06 ingredients, 08 comparison composite |
+| `tube-tilt.webp` | the turned tube leaning 24° | 02 the switch |
 | `tube-shadow.webp` / `tube-shadow-soft.webp` | the real ground shadow lifted from the studio shot (contact line + falloff) / a diffused version for floating tubes | under every single tube |
-| `pack4.webp` | four tubes in a receding row, each label turned slightly, with ground shadows and occlusion shadows between tubes | product card, comparison, final |
-| `tablet-a.webp`, `tablet-b.webp` | two effervescent tablets ray-marched in 3D: pale mint, chalky, porous, green flecks, lit like the tube | hero (exactly two), switch, how it works, ingredients, final fizz |
+| `pack4.webp` (+ `pack4-640.webp`) | four tubes in a receding row, each label turned slightly, with ground shadows and occlusion shadows between tubes | 03 product container |
+| `tablet-a.webp`, `tablet-b.webp` | two effervescent tablets ray-marched in 3D: pale mint, chalky, porous, green flecks, lit like the tube | 02 switch, 06 ingredients (the hero uses the same two tablets as frame strips, §4b) |
 
 The tube is a surface of revolution, so its outline, cap and base are identical
 at any rotation and only the label moves. The script reads each label point
@@ -242,12 +287,12 @@ reflection, Beer-Lambert absorption and scattering in the drink:
 
 | File | What it is | Used in |
 |---|---|---|
-| `glass-water.webp`, `glass-drink.webp`, `glass-shine.webp`, `glass-fizz.webp`, `glass-mask.webp` | the tumbler as registered layers (rendered on forest green) | 04 how it works, 12 final fizz |
-| `glass-drink-arch.webp` | the finished drink on the lifestyle arch colour | 07 lifestyle |
-| `shot-amber.webp` | shot glass of liquid ACV (rendered on the cream card colour) | 02 the switch ("the old way"), 08 comparison |
-| `plinth.webp` | clay plinth with contact shadow | 07 lifestyle (three product sets) |
-| `bubble-1..3.webp` | hero carbonation sprites tuned for coral: thin bright meniscus ring, deeper-coral inner edge, specular point (`python tools/render_props.py --bubbles` rebuilds only these) | 01 hero |
-| `tablet-c.webp` | a third tablet render, lying flat (from `render_product.py`) | 07 lifestyle |
+| `glass-water.webp`, `glass-drink.webp`, `glass-shine.webp`, `glass-fizz.webp`, `glass-mask.webp` | the tumbler as registered layers (rendered on the earlier forest green) | not used |
+| `glass-drink-arch.webp` | the finished drink on the earlier lifestyle arch colour | not used |
+| `shot-amber.webp` | shot glass of liquid ACV (rendered on `#F6EBD3`, the tile colour behind it) | 02 the switch ("the old way") |
+| `plinth.webp` | clay plinth with contact shadow | not used |
+| `bubble-1..3.webp` | hero carbonation sprites: thin bright meniscus ring, warm inner edge, specular point (`python tools/render_props.py --bubbles` rebuilds only these) | 01 hero |
+| `tablet-c.webp` | a third tablet render, lying flat (from `render_product.py`) | not used |
 
 Each render sits on the exact colour of the area it is placed on, so edges never show.
 
@@ -257,10 +302,19 @@ bubble count, sizes or speeds, edit the settings at the top of
 `tools/make_fizz.py` and run it: it rewrites the hero field in `index.html` and
 prints the resulting bubbles per second.
 
-**Note:** sections 04, 07, 08 and 12 now use photographs (prompts in
-`assets/images/*-prompt.txt` and `refinement-generation-notes.txt`). The glass,
-shot-glass and plinth renders above are still in `assets/images`, but the page no
-longer references them.
+**Photographs.** Sections 04, 07, 08 and 12 use photographs (prompts in
+`assets/images/*-prompt.txt` and `refinement-generation-notes.txt`):
+`preparation-sequence.webp` (04, one file cropped three ways), `lifestyle-workspace.webp`
+(07), `comparison-vinegar.webp` (08, left) and `final-product-drink.webp` (12). The two
+large photos have 768 px copies for phones (`tools/make_responsive.py`).
+
+**Comparison composite.** The XETAFIT side of 08 needs the tube beside a prepared
+drink in the same cream studio light as the vinegar photo. `tools/compose_comparison.py`
+builds `comparison-xetafit.webp` from the "sip" frame of `preparation-sequence.webp`
+and `tube-angle.webp`: the tube is sized to about 1.1 × the tumbler, warm-graded to the
+photo's light, softened to its sharpness and given a contact shadow and a soft cast
+shadow. The label itself is not altered. Replace it with a real photograph of the
+pack and a prepared glass when one exists.
 
 ## 6. Assets to replace before launch
 
@@ -269,9 +323,15 @@ longer references them.
    front-on on white at about 2000 px tall, can replace it. Re-run
    `tools/render_product.py` and every image on the page updates.
 2. **Official logo SVG** (the header currently uses a 256 × 68 raster cut from the brand's creative: crisp on standard screens, slightly soft on high-density ones).
-3. *(Optional)* real photography for lifestyle moments or fruit, if wanted. The site
-   shows no fruit imagery of its own; the only fruit is the artwork on the pack label.
-4. Verified reviews (see §5).
+3. **Ingredient photography.** The brief asks for realistic green apples and
+   pomegranate in section 06. The project has no such photographs, and none were
+   invented, so 06 shows the tube and a tablet on red, and the only fruit is the
+   artwork on the pack label. Supply a licensed or shot photograph (green apples,
+   a split pomegranate, a tablet; on a plain background) and it can drop into the
+   red stage in `.ing__stage`.
+4. **A real XETAFIT + glass photograph** to replace the 08 composite (see §5c), and
+   *(optional)* more lifestyle moments (morning, active, on the move).
+5. Verified reviews (see §5).
 
 ## 7. Open questions for the client (unchanged from V9)
 

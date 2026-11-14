@@ -1,0 +1,20 @@
+{
+  "canvas": [
+    360,
+    1369
+  ],
+  "elevation_deg": 8.19,
+  "rim_cx": 49.984,
+  "rim_cy": 6.647,
+  "rim_rx_w": 45.261,
+  "rim_ry_h": 1.695,
+  "inner_rx_w": 44.011,
+  "inner_ry_h": 1.648,
+  "seam_center_h": 8.459,
+  "cap_top_h": 0.0,
+  "cap_bottom_h": 9.934,
+  "body_halfwidth_w": 45.261,
+  "tablet_frames": 16,
+  "tablet_span": 1.32,
+  "tablet_half_thickness": 0.24
+}

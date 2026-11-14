@@ -5,50 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>XETAFIT Apple Cider Vinegar Effervescent Tablets — Fizz Your Way to Wellness</title>
   <meta name="description" content="XETAFIT Apple Cider Vinegar Effervescent Tablets in Green Apple &amp; Pomegranate flavour. 500 mg ACV with Vitamins B6 &amp; B12 per tablet. Pack of 4 — 4 tubes, 60 tablets.">
-  <meta name="theme-color" content="#F46B62">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23174D3A'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23F46B62'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#DF1635">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23DF1635'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23FDF2E3'/%3E%3C/svg%3E">
 
-  <!-- Fonts: DM Sans (display), Cormorant Garamond (editorial), Inter (body) -->
+  <!-- Fonts: DM Sans (display + body), Cormorant Garamond (editorial serif) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400..900&display=swap">
 
-  <!-- The hero tube is the first thing painted -->
-  <link rel="preload" as="image" href="assets/images/tube-front.webp" type="image/webp" fetchpriority="high">
+  <!-- The hero tube is the first image painted -->
+  <link rel="preload" as="image" href="assets/images/hero-tube.webp" imagesrcset="assets/images/hero-tube-190.webp 190w, assets/images/hero-tube.webp 360w" imagesizes="(min-width: 1100px) 135px, 105px" type="image/webp" fetchpriority="high">
+  <!-- layers of the opening sequence, needed about 1.3 s after load -->
+  <link rel="preload" as="image" href="assets/images/hero-tube-open.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/images/hero-cap.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/images/hero-tube-inner.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/images/hero-tablet-1.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/images/hero-tablet-2.webp" type="image/webp">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/benefits.css">
 </head>
 <body>
 
 <a class="skip-link" href="#buy">Skip to the 4-pack</a>
 
-<!-- ============================================================
-     Inline icon sprite (line art, inherits currentColor)
-     ============================================================ -->
+<!-- Inline icon sprite (inherits currentColor) -->
 <svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z M14 3v4h4 M9 12h6 M9 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-  <symbol id="i-energy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-8 12h6l-1 8 9-13h-7z"/></g></symbol>
-  <symbol id="i-apple" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-6-5-11 2-8 9 2 5 5 5 8 3 3 2 6 2 8-3 3-7-2-14-8-9Z"/><path d="M12 7c0-4 2-5 5-5-1 3-2 4-5 5Z"/></g></symbol>
-  <symbol id="i-drop" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2S5 10 5 14a7 7 0 0 0 14 0c0-4-7-12-7-12Z"/><path d="M8 14a4 4 0 0 0 4 4"/></g></symbol>
-  <symbol id="i-glass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 3 2 18h10l2-18H5Z"/><path d="M6 9h12M10 13h.01M14 16h.01"/></g></symbol>
-  <symbol id="i-plate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="12" r="7"/><circle cx="13" cy="12" r="4"/><path d="M2 4v5c0 2 3 2 3 0V4M3.5 4v17M22 4v17"/></g></symbol>
-  <symbol id="i-comfort" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v6c0 2-1 3-3 3-3 0-4 3-3 6 1 3 5 4 9 3 6-1 9-6 7-11-1-3-4-4-5-2-1 1-2 1-2-1V3"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <!-- ============================================================
-     FLOATING PILL NAVIGATION
+     HEADER: three floating capsules, as in the reference
+     brand plate · grouped navigation · utility + Product
      No Buy Now here: V9 allows Buy Now only in scenes 01 and 12.
-     "Product" is the navigation link to scene 03, as in the approved build.
      ============================================================ -->
-<header class="nav">
-  <!-- Official XETAFIT logo, cut from the brand's own artwork (tools/extract_logo.py).
-       Swap in the official SVG when supplied; keep the alt text. -->
-  <a class="nav__brand" href="#top" aria-label="XETAFIT — back to top"><img src="assets/images/xetafit-logo.png" alt="XETAFIT" width="256" height="68" decoding="async"></a>
-  <nav class="nav__links" aria-label="Primary">
+<header class="hdr">
+  <!-- Official XETAFIT logo (tools/extract_logo.py). Its orange mark needs a dark
+       ground (1.4:1 on the red, 5.6:1 on the plate). Swap in the SVG when supplied. -->
+  <a class="hdr__brand" href="#top" aria-label="XETAFIT — back to top"><img src="assets/images/xetafit-logo.png" alt="XETAFIT" width="256" height="68" decoding="async"></a>
+
+  <nav class="hdr__nav" aria-label="Primary">
     <ul>
       <li><a href="#how">How it works</a></li>
       <li><a href="#benefits">Benefits</a></li>
@@ -58,53 +61,87 @@
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
-  <a class="nav__product" href="#buy">Product <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+
+  <div class="hdr__actions">
+    <a class="hdr__icon" href="certificate.html" aria-label="Certificate of Analysis" title="Certificate of Analysis"><svg aria-hidden="true"><use href="#i-doc"/></svg></a>
+    <a class="hdr__menu" href="#menu" aria-controls="menu"><svg aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
+    <a class="hdr__cta" href="#buy">Product <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  </div>
 </header>
+
+<!-- Phone / tablet menu. CSS only: opened with #menu (:target); following any link
+     inside it changes the target, so the menu closes on its own. -->
+<nav class="menu" id="menu" aria-label="Menu">
+  <div class="menu__top">
+    <span class="menu__title">Menu</span>
+    <a class="menu__close" href="#menu-closed" aria-label="Close menu"><svg aria-hidden="true"><use href="#i-close"/></svg></a>
+  </div>
+  <ul class="menu__links">
+    <li><a href="#how"><span>01</span>How it works</a></li>
+    <li><a href="#benefits"><span>02</span>Benefits</a></li>
+    <li><a href="#ingredients"><span>03</span>Ingredients</a></li>
+    <li><a href="#reviews"><span>04</span>Reviews</a></li>
+    <li><a href="#quality"><span>05</span>Quality</a></li>
+    <li><a href="#faq"><span>06</span>FAQ</a></li>
+  </ul>
+  <div class="menu__foot">
+    <a class="btn btn--gold" href="#buy">Product <span class="btn__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a>
+    <a class="btn btn--ghost" href="certificate.html">Certificate <span class="btn__icon" aria-hidden="true"><svg><use href="#i-doc"/></svg></span></a>
+  </div>
+</nav>
 
 <main id="main">
 
 <!-- ============================================================
      01 / HERO
      ============================================================ -->
-<section class="sec sec--coral hero" id="top" aria-labelledby="hero-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">01</span><span aria-hidden="true">/</span>HERO</p></div>
-  <div class="wrap hero__wrap">
-    <p class="hero__eyebrow intro" style="--d:0">Apple Cider Vinegar Effervescent Tablets</p>
+<section class="sec hero" id="top" aria-labelledby="hero-title">
+  <span class="cross cross--a" aria-hidden="true"></span>
+  <span class="cross cross--b" aria-hidden="true"></span>
+
+  <div class="wrap hero__inner">
+    <p class="eyebrow hero__eyebrow intro" style="--d:0"><span class="eyebrow__dot" aria-hidden="true"></span>Apple Cider Vinegar Effervescent Tablets</p>
 
     <h1 class="hero__title" id="hero-title">
-      <span class="line"><span class="intro-line" style="--d:1">FIZZ YOUR WAY TO</span></span>
-      <span class="line"><em class="intro-line" style="--d:2">WELLNESS.</em></span>
+      <span class="line"><span class="intro-line" style="--d:1">FIZZ YOUR</span></span>
+      <span class="line"><span class="intro-line" style="--d:2">WAY TO</span></span>
+      <span class="line"><em class="intro-line" style="--d:3">WELLNESS.</em></span>
     </h1>
 
     <div class="hero__stage">
-      <div class="hero__intro">
-        <p class="hero__lead intro" style="--d:3">Your daily apple cider vinegar ritual, made refreshingly simple.</p>
-        <p class="hero__meta intro" style="--d:4"><span>Green Apple + Pomegranate flavour</span> <span>ACV with Vitamins B6 &amp; B12</span></p>
-        <div class="cta-row intro" style="--d:5">
-          <a class="btn" href="#buy">Buy now
+      <div class="hero__copy">
+        <p class="hero__lead intro" style="--d:4">Your daily apple cider vinegar ritual, made refreshingly simple.</p>
+        <p class="hero__flavour intro" style="--d:5"><span class="eyebrow__dot" aria-hidden="true"></span>Green Apple + Pomegranate flavour</p>
+        <div class="cta-row hero__cta intro intro--last" style="--d:7">
+          <a class="btn btn--gold btn--lg" href="#buy">Buy now
             <span class="btn__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
           </a>
-          <p class="pack-chip"><strong>Pack of 4</strong><span>4 tubes · 60 tablets</span></p>
+          <p class="pack-tag"><strong>Pack of 4</strong><span>60 tablets</span></p>
         </div>
       </div>
 
-      <figure class="hero__art intro-art">
-        <div class="hero__zoom zoom">
-          <div class="hero__breathe breathe">
-            <span class="hero__ground" aria-hidden="true"><img class="tube__shadow tube__shadow--soft" src="assets/images/tube-shadow-soft.webp" alt="" width="628" height="182" decoding="async"></span>
-            <span class="tab tab--a" aria-hidden="true"><img class="drift" src="assets/images/tablet-a.webp" alt="" width="431" height="408" decoding="async"></span>
-            <span class="tab tab--b" aria-hidden="true"><img class="drift drift--b" src="assets/images/tablet-b.webp" alt="" width="426" height="342" decoding="async"></span>
-            <div class="hero__float">
-              <img class="hero__tube" src="assets/images/tube-front.webp" alt="XETAFIT Apple Cider Vinegar effervescent tablets tube, Green Apple flavour, 15 effervescent tablets" width="360" height="1369" fetchpriority="high" decoding="async">
-              <span class="sheen sheen--front" aria-hidden="true"></span>
-            </div>
+      <!-- Original closed-packshot fallback: authentic matching open-mouth and
+           detached-cap renders are required before enabling the opening sequence.
+           Tablets are visible in their final composition; no emergence is implied. -->
+      <figure class="hero__art">
+        <span class="hero__ground" aria-hidden="true"><img class="tube__shadow tube__shadow--soft" src="assets/images/tube-shadow-soft.webp" alt="" width="628" height="182" decoding="async"></span>
+        <div class="hero__product">
+          <img class="hero__layer hero__well" src="assets/images/hero-tube-inner.webp" alt="" width="360" height="1369" decoding="async" aria-hidden="true">
+          <span class="tab tab--1" aria-hidden="true"><span class="tab__y"><span class="tab__bob"><span class="tab__img"></span></span></span></span>
+          <span class="tab tab--2" aria-hidden="true"><span class="tab__y"><span class="tab__bob"><span class="tab__img"></span></span></span></span>
+          <img class="hero__layer hero__open" src="assets/images/hero-tube-open.webp" alt="" width="360" height="1369" decoding="async" aria-hidden="true">
+          <div class="hero__closed">
+            <img class="hero__tube" src="assets/images/hero-tube.webp" srcset="assets/images/hero-tube-190.webp 190w, assets/images/hero-tube.webp 360w" sizes="(min-width: 1100px) 135px, 105px" alt="XETAFIT Apple Cider Vinegar effervescent tablets tube, Green Apple flavour, 15 effervescent tablets" width="360" height="1369" fetchpriority="high" decoding="async">
+            <span class="sheen sheen--front" aria-hidden="true"></span>
           </div>
+          <img class="hero__layer hero__cap" src="assets/images/hero-cap.webp" alt="" width="360" height="1369" decoding="async" aria-hidden="true">
         </div>
       </figure>
 
-      <ul class="hero__stats" aria-label="Per tablet">
-        <li class="intro" style="--d:4"><strong>500 mg</strong><span>ACV per tablet</span></li>
-        <li class="intro" style="--d:5"><strong>0 g</strong><span>sugar per tablet</span></li>
+      <ul class="hero__facts" aria-label="Product facts">
+        <li class="intro" style="--d:5"><strong>500<small>mg</small></strong><span>ACV per tablet</span></li>
+        <li class="intro" style="--d:6"><strong>0<small>g</small></strong><span>sugar per tablet</span></li>
+        <li class="intro" style="--d:7"><strong>B6<small>&amp;</small>B12</strong><span>Vitamins</span></li>
       </ul>
     </div>
   </div>
@@ -217,41 +254,48 @@
   </div>
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <div class="marquee__group"><span>Drop. Fizz. Sip.</span><span>Drop. Fizz. Sip.</span></div>
-      <div class="marquee__group"><span>Drop. Fizz. Sip.</span><span>Drop. Fizz. Sip.</span></div>
+      <div class="marquee__group"><span>Fizz. Sip. Repeat.</span><span>Fizz. Sip. Repeat.</span></div>
+      <div class="marquee__group"><span>Fizz. Sip. Repeat.</span><span>Fizz. Sip. Repeat.</span></div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     02 / THE SWITCH
+     02 / THE SWITCH   (burgundy panel)
      ============================================================ -->
-<section class="sec sec--cream switch" id="switch" aria-labelledby="switch-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">02</span><span aria-hidden="true">/</span>THE SWITCH</p></div>
-  <div class="wrap switch__grid">
-    <div class="switch__copy rv">
-      <h2 class="h2" id="switch-title">SKIP THE <em>SOUR SHOT.</em></h2>
-      <p class="lead">Why measure and dilute liquid ACV when a pre-portioned tablet can make your routine so much simpler?</p>
-      <p class="body">The refreshing taste of Green Apple &amp; Pomegranate — without the traditional vinegar-shot experience.</p>
-      <ul class="ticks">
-        <li>No liquid measuring</li>
-        <li>Fruit-flavoured fizz</li>
-        <li>Easy-to-carry tube</li>
-      </ul>
-    </div>
+<section class="sec sec--panel switch" id="switch" aria-labelledby="switch-title">
+  <div class="panel panel--burgundy">
+    <div class="wrap switch__grid">
+      <div class="switch__copy rv">
+        <p class="eyebrow"><span class="eyebrow__n">02</span>The switch</p>
+        <h2 class="h2" id="switch-title">SKIP THE <em>SOUR SHOT.</em></h2>
+        <p class="lead">Why measure and dilute liquid ACV when a pre-portioned tablet can make your routine so much simpler?</p>
+        <p class="body">The refreshing taste of Green Apple &amp; Pomegranate — without the traditional vinegar-shot experience.</p>
+        <ul class="checks">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>No liquid measuring</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Fruit-flavoured fizz</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Easy-to-carry tube</li>
+        </ul>
+      </div>
 
-    <div class="switch__visual rv rv--media">
-      <figure class="switch__stage">
-        <img class="switch__shadow" src="assets/images/tube-shadow-soft.webp" alt="" width="628" height="182" loading="lazy" decoding="async">
-        <img class="switch__tube" src="assets/images/tube-tilt.webp" alt="A XETAFIT Apple Cider Vinegar tube" width="854" height="1357" loading="lazy" decoding="async">
-        <span class="switch__tablet" aria-hidden="true"><img class="drift" src="assets/images/tablet-b.webp" alt="" width="426" height="342" loading="lazy" decoding="async"></span>
-      </figure>
-      <figure class="oldway">
-        <span class="oldway__art" aria-hidden="true">
-          <img src="assets/images/shot-amber.webp" alt="" width="300" height="300" loading="lazy" decoding="async">
-        </span>
-        <figcaption>The old way: liquid ACV, a measure and a sour shot.</figcaption>
-      </figure>
+      <div class="switch__visual rv">
+        <figure class="switch__stage" role="img" aria-label="Slanted XETAFIT tube with its mouth open, one pale-green tablet hovering between the tube and its detached white cap">
+          <img class="switch__shadow" src="assets/images/tube-shadow-soft.webp" alt="" width="628" height="182" loading="lazy" decoding="async">
+          <span class="switch__pose" aria-hidden="true">
+            <span class="switch__float">
+              <span class="switch__piece switch__body"><span class="switch__art"></span></span>
+              <span class="switch__piece switch__cap"><span class="switch__art"></span></span>
+              <span class="switch__piece switch__tablet"><span class="switch__art"></span></span>
+            </span>
+          </span>
+        </figure>
+        <figure class="oldway">
+          <span class="oldway__art" aria-hidden="true">
+            <img src="assets/images/shot-amber.webp" alt="" width="300" height="300" loading="lazy" decoding="async">
+          </span>
+          <figcaption>The old way: liquid ACV, a measure and a sour shot.</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -259,138 +303,146 @@
 <!-- ============================================================
      03 / PRODUCT SHOWCASE + PURCHASE  (the only purchase card)
      ============================================================ -->
-<section class="sec sec--coral buy" id="buy" aria-labelledby="buy-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">03</span><span aria-hidden="true">/</span>PRODUCT</p></div>
-  
+<section class="sec buy" id="buy" aria-labelledby="buy-title">
+  <p class="bigtype bigtype--buy" aria-hidden="true"><span>Pack of 4 · 60 Tablets</span></p>
+  <span class="cross cross--c" aria-hidden="true"></span>
+
   <div class="wrap">
     <header class="sec-head sec-head--center rv">
+      <p class="eyebrow"><span class="eyebrow__n">03</span>Product</p>
       <h2 class="h2" id="buy-title">MEET YOUR <em>DAILY FIZZ.</em></h2>
     </header>
 
-    <div>
-      <article class="buy-card" aria-labelledby="buy-name">
-        <figure class="buy-card__media rv rv--media">
-          <span class="reveal"><span class="buy-card__zoom zoom"><span class="buy-card__shot breathe">
-            <img src="assets/images/pack4.webp" alt="XETAFIT Pack of 4: four tubes of Apple Cider Vinegar effervescent tablets" width="1258" height="1433" loading="lazy" decoding="async">
-            <span class="sheen sheen--pack" aria-hidden="true"></span>
-          </span></span></span>
-        </figure>
+    <article class="buy-card" aria-labelledby="buy-name">
+      <figure class="buy-card__media rv">
+        <span class="reveal"><span class="buy-card__zoom zoom"><span class="buy-card__shot breathe">
+          <img src="assets/images/pack4.webp" srcset="assets/images/pack4-640.webp 640w, assets/images/pack4.webp 1258w" sizes="(min-width: 960px) 40vw, 86vw" alt="XETAFIT Pack of 4: four tubes of Apple Cider Vinegar effervescent tablets" width="1258" height="1433" loading="lazy" decoding="async">
+          <span class="sheen sheen--pack" aria-hidden="true"></span>
+        </span></span></span>
+        <span class="badge buy-card__badge">4 tubes · 60 tablets</span>
+      </figure>
 
-        <div class="buy-card__body rv rv--stagger">
-          <h3 class="buy-card__name" id="buy-name">XETAFIT Apple Cider Vinegar Effervescent Tablets.</h3>
-          <p class="buy-card__desc">A convenient ACV supplement with Pomegranate Extract, Vitamin B6 and Vitamin B12 — made for an easy daily routine.</p>
-          <ul class="ticks ticks--compact">
-            <li>Green Apple &amp; Pomegranate flavour</li>
-            <li>500 mg ACV and 100 mg Pomegranate Extract per tablet</li>
-            <li>0 g sugar per tablet</li>
-            <li>Available format: Pack of 4 only — 4 tubes × 15 tablets = 60 tablets</li>
-          </ul>
+      <div class="buy-card__body rv">
+        <p class="eyebrow eyebrow--ink"><span class="eyebrow__n">Pack of 4</span>The only format</p>
+        <h3 class="buy-card__name" id="buy-name">XETAFIT Apple Cider Vinegar Effervescent Tablets.</h3>
+        <p class="buy-card__desc">A convenient ACV supplement with Pomegranate Extract, Vitamin B6 and Vitamin B12 — made for an easy daily routine.</p>
+        <ul class="dots">
+          <li>Green Apple &amp; Pomegranate flavour</li>
+          <li>500 mg ACV and 100 mg Pomegranate Extract per tablet</li>
+          <li>0 g sugar per tablet</li>
+          <li>Available format: Pack of 4 only — 4 tubes × 15 tablets = 60 tablets</li>
+        </ul>
 
-          <!-- Informational container — NOT a selector or a button -->
-          <div class="pack-fact" role="group" aria-label="What is in the pack">
-            <p class="pack-fact__big">Pack of 4</p>
-            <p class="pack-fact__eq"><span>4 tubes × 15 tablets</span><span>60 effervescent tablets</span></p>
-          </div>
-
-          <!-- ======== STORE INTEGRATION POINT ========
-               Replace each .pending value with live data from the store for the
-               four-pack SKU only (price, stock, delivery). No price is hard-coded. -->
-          <dl class="live">
-            <div><dt>Price</dt><dd><span class="pending">Live store price — connects at launch</span></dd></div>
-            <div><dt>Stock</dt><dd><span class="pending">Live availability — connects at launch</span></dd></div>
-            <div><dt>Delivery</dt><dd><span class="pending">Delivery details — connects at launch</span></dd></div>
-            <div><dt>Quantity</dt><dd>1 × Pack of 4 (60 tablets)</dd></div>
-          </dl>
-
-          <!-- ======== CART INTEGRATION POINT ========
-               1. Set action to the store's add-to-cart endpoint (e.g. Shopify: /cart/add).
-               2. Put the FOUR-PACK variant ID in the hidden "id" field.
-               3. Remove the disabled attribute and the .cart-status note.
-               Only the four-tube product may be added; there is no other option. -->
-          <form class="cart" action="#buy" method="post">
-            <input type="hidden" name="id" value="REPLACE_WITH_4PACK_VARIANT_ID">
-            <input type="hidden" name="quantity" value="1">
-            <button class="btn btn--block" type="submit" disabled aria-describedby="cart-status">Add to cart
-              <span class="btn__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span>
-            </button>
-            <p class="cart-status" id="cart-status"><strong>Store not connected yet.</strong> This preview cannot add to cart. Price, stock and delivery appear here once the four-pack SKU is linked.</p>
-          </form>
+        <!-- Informational container — NOT a selector or a button -->
+        <div class="pack-fact" role="group" aria-label="What is in the pack">
+          <p class="pack-fact__big">Pack of 4</p>
+          <p class="pack-fact__eq"><span>4 tubes × 15 tablets</span><span>60 effervescent tablets</span></p>
         </div>
-      </article>
-    </div>
+
+        <!-- ======== STORE INTEGRATION POINT ========
+             Replace each .pending value with live data from the store for the
+             four-pack SKU only (price, stock, delivery). No price is hard-coded. -->
+        <dl class="live">
+          <div><dt>Price</dt><dd><span class="pending">Live store price — connects at launch</span></dd></div>
+          <div><dt>Stock</dt><dd><span class="pending">Live availability — connects at launch</span></dd></div>
+          <div><dt>Delivery</dt><dd><span class="pending">Delivery details — connects at launch</span></dd></div>
+          <div><dt>Quantity</dt><dd>1 × Pack of 4 (60 tablets)</dd></div>
+        </dl>
+
+        <!-- ======== CART INTEGRATION POINT ========
+             1. Set action to the store's add-to-cart endpoint (e.g. Shopify: /cart/add).
+             2. Put the FOUR-PACK variant ID in the hidden "id" field.
+             3. Remove the disabled attribute and the .cart-status note.
+             Only the four-tube product may be added; there is no other option. -->
+        <form class="cart" action="#buy" method="post">
+          <input type="hidden" name="id" value="REPLACE_WITH_4PACK_VARIANT_ID">
+          <input type="hidden" name="quantity" value="1">
+          <button class="btn btn--gold btn--lg btn--block" type="submit" disabled aria-describedby="cart-status">Add to cart
+            <span class="btn__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span>
+          </button>
+          <p class="cart-status" id="cart-status"><strong>Store not connected yet.</strong> This preview cannot add to cart. Price, stock and delivery appear here once the four-pack SKU is linked.</p>
+        </form>
+      </div>
+    </article>
   </div>
 </section>
 
 <!-- ============================================================
      04 / HOW IT WORKS
      ============================================================ -->
-<section class="sec sec--green how" id="how" aria-labelledby="how-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">04</span><span aria-hidden="true">/</span>HOW IT WORKS</p></div>
-  <div class="wrap how-demo">
-    <header class="sec-head rv">
-      <h2 class="h2" id="how-title">DROP. FIZZ. <em>SIP.</em></h2>
+<section class="sec how" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <header class="sec-head sec-head--split rv">
+      <div>
+        <p class="eyebrow"><span class="eyebrow__n">04</span>How it works</p>
+        <h2 class="h2" id="how-title">DROP. FIZZ. <em>SIP.</em></h2>
+      </div>
       <p class="lead">Your ACV routine takes just three simple steps.</p>
     </header>
-    <ol class="preparation rv rv--stagger">
-      <li class="preparation__step">
-        <figure class="preparation__image preparation__image--1"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="A pale-green tablet just above a glass of clear water" width="2172" height="724" loading="lazy" decoding="async"></figure>
-        <div class="preparation__heading"><span>01</span><h3>Drop</h3></div>
+
+    <ol class="steps rv">
+      <li class="step">
+        <figure class="step__photo step__photo--1"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="A pale-green tablet just above a glass of clear water" width="2172" height="724" loading="lazy" decoding="async"></figure>
+        <span class="badge step__badge" aria-hidden="true">01</span>
+        <h3 class="step__title">Drop</h3>
         <p>Add one tablet to 200&ndash;250 ml of water.</p>
       </li>
-      <li class="preparation__step">
-        <figure class="preparation__image preparation__image--2"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="A tablet dissolving in water with fine carbonation around it" width="2172" height="724" loading="lazy" decoding="async"></figure>
-        <div class="preparation__heading"><span>02</span><h3>Fizz</h3></div>
+      <li class="step">
+        <figure class="step__photo step__photo--2"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="A tablet dissolving in water with fine carbonation around it" width="2172" height="724" loading="lazy" decoding="async"></figure>
+        <span class="badge step__badge" aria-hidden="true">02</span>
+        <h3 class="step__title">Fizz</h3>
         <p>Let the tablet dissolve completely.</p>
       </li>
-      <li class="preparation__step">
-        <figure class="preparation__image preparation__image--3"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="The completed pale-green drink in a clear glass" width="2172" height="724" loading="lazy" decoding="async"></figure>
-        <div class="preparation__heading"><span>03</span><h3>Sip</h3></div>
+      <li class="step">
+        <figure class="step__photo step__photo--3"><img class="zoom" src="assets/images/preparation-sequence.webp" alt="The completed pale-green drink in a clear glass" width="2172" height="724" loading="lazy" decoding="async"></figure>
+        <span class="badge step__badge" aria-hidden="true">03</span>
+        <h3 class="step__title">Sip</h3>
         <p>Enjoy your refreshing drink.</p>
       </li>
     </ol>
-    <p class="fact-note how-demo__note">Adults: follow the currently approved label for timing and daily limits.</p>
+    <p class="note note--center">Adults: follow the currently approved label for timing and daily limits.</p>
   </div>
 </section>
 
 <!-- ============================================================
-     05 / BENEFITS  (product centred, numbered facts either side)
+     05 / BENEFITS  (burgundy panel: product centred, numbered facts either side)
      ============================================================ -->
-<section class="sec sec--coral benefits" id="benefits" aria-labelledby="benefits-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">05</span><span aria-hidden="true">/</span>BENEFITS</p></div>
-  <div class="wrap">
-    <div class="panel panel--deep">
-      
-      <header class="sec-head sec-head--center rv">
+<section class="sec sec--panel benefits" id="benefits" aria-labelledby="benefits-title">
+  <div class="panel panel--burgundy">
+    <span class="cross cross--d" aria-hidden="true"></span>
+    <div class="wrap">
+      <header class="sec-head sec-head--center">
+        <p class="eyebrow"><span class="eyebrow__n">05</span>Benefits</p>
         <h2 class="h2 h2--serif" id="benefits-title">FEEL GOOD ABOUT <em>YOUR ROUTINE.</em></h2>
         <p class="lead">A refreshing everyday ritual, made with ingredients that fit an active lifestyle.</p>
       </header>
 
       <div class="formula">
-        <ol class="formula__col formula__col--l rv">
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-energy"/></svg><span>01</span></span><div><h3>Everyday energy metabolism</h3><p>Vitamins B6 &amp; B12 contribute to normal energy metabolism.</p></div></li>
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-apple"/></svg><span>02</span></span><div><h3>ACV in your routine</h3><p>An easy, portioned way to enjoy apple cider vinegar.</p></div></li>
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-drop"/></svg><span>03</span></span><div><h3>Refreshing hydration moment</h3><p>A fruity drink prepared with water.</p></div></li>
+        <ol class="formula__col formula__col--l">
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">01</span><div><h3>Everyday energy metabolism</h3><p>Vitamins B6 &amp; B12 contribute to normal energy metabolism.</p></div></li>
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">02</span><div><h3>ACV in your routine</h3><p>An easy, portioned way to enjoy apple cider vinegar.</p></div></li>
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">03</span><div><h3>Refreshing hydration moment</h3><p>A fruity drink prepared with water.</p></div></li>
         </ol>
 
-        <figure class="formula__art rv rv--media">
-          <span class="tube">
-            <span class="tube__set breathe">
-              <img class="tube__shadow" src="assets/images/tube-shadow.webp" alt="" width="842" height="123" loading="lazy" decoding="async">
-              <img class="tube__img" src="assets/images/tube-front.webp" alt="XETAFIT Apple Cider Vinegar tube" width="360" height="1369" loading="lazy" decoding="async">
-              <span class="sheen sheen--front" aria-hidden="true"></span>
-            </span>
+        <figure class="formula__art" role="img" aria-label="XETAFIT tube with an open cap and one floating tablet introducing six benefits">
+          <span class="benefit-product" aria-hidden="true">
+            <span class="benefit-body benefit-sprite"></span>
+            <span class="benefit-cap"><span class="benefit-sprite"></span></span>
+            <span class="benefit-flight"><span class="benefit-tablet benefit-sprite"></span></span>
+            <img class="benefit-seal" src="assets/images/hero-cap.webp" width="360" height="1369" alt="">
           </span>
+          <img class="benefit-shadow" src="assets/images/tube-shadow-soft.webp" width="628" height="182" alt="" loading="lazy" decoding="async">
         </figure>
 
-        <ol class="formula__col formula__col--r rv" start="4">
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-glass"/></svg><span>04</span></span><div><h3>Simple preparation</h3><p>No measuring or carrying liquid vinegar.</p></div></li>
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-plate"/></svg><span>05</span></span><div><h3>Cravings-conscious routine</h3><p>A refreshing drink to enjoy alongside mindful eating.</p></div></li>
-          <li class="bfact"><span class="benefit-mark" aria-hidden="true"><svg><use href="#i-comfort"/></svg><span>06</span></span><div><h3>Digestive comfort focus</h3><p>Easy ACV preparation; bloating relief is not proven.</p></div></li>
+        <ol class="formula__col formula__col--r" start="4">
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">04</span><div><h3>Simple preparation</h3><p>No measuring or carrying liquid vinegar.</p></div></li>
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">05</span><div><h3>Cravings-conscious routine</h3><p>A refreshing drink to enjoy alongside mindful eating.</p></div></li>
+          <li class="bfact"><span class="bfact__n" aria-hidden="true">06</span><div><h3>Digestive comfort focus</h3><p>Easy ACV preparation; bloating relief is not proven.</p></div></li>
         </ol>
       </div>
 
       <p class="benefits__cta">
-        <a class="btn" href="#buy">Get your 4-pack
+        <a class="btn btn--gold btn--lg" href="#buy">Get your 4-pack
           <span class="btn__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
         </a>
       </p>
@@ -399,51 +451,49 @@
 </section>
 
 <!-- ============================================================
-     06 / INGREDIENTS + PRODUCT FACTS
+     06 / INGREDIENTS + PRODUCT FACTS   (cream panel)
      ============================================================ -->
-<section class="sec sec--cream ingredients" id="ingredients" aria-labelledby="ingredients-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">06</span><span aria-hidden="true">/</span>INGREDIENTS</p></div>
-  <div class="wrap">
-    <header class="sec-head sec-head--split rv">
-      <div>
-        <h2 class="h2" id="ingredients-title">KNOW WHAT <em>GOES IN.</em></h2>
-      </div>
-      <p class="lead">A closer look at the formula behind the fizz.</p>
-    </header>
-
-    <div class="ing__grid">
-      <figure class="ing__art rv rv--media">
-        <div class="ing__photo">
-          <div class="ing__zoom zoom">
-            <span class="tube ing__tube">
-              <span class="tube__set breathe">
-                <img class="tube__shadow" src="assets/images/tube-shadow.webp" alt="" width="842" height="123" loading="lazy" decoding="async">
-                <img class="tube__img" src="assets/images/tube-angle.webp" alt="XETAFIT Apple Cider Vinegar tube, turned to show the label" width="360" height="1369" loading="lazy" decoding="async">
-                <span class="sheen sheen--angle" aria-hidden="true"></span>
-              </span>
-            </span>
-            <span class="ing__tablet" aria-hidden="true"><img class="drift" src="assets/images/tablet-a.webp" alt="" width="431" height="408" loading="lazy" decoding="async"></span>
-          </div>
+<section class="sec sec--panel ingredients" id="ingredients" aria-labelledby="ingredients-title">
+  <div class="panel panel--cream">
+    <div class="wrap">
+      <header class="sec-head sec-head--split rv">
+        <div>
+          <p class="eyebrow eyebrow--ink"><span class="eyebrow__n">06</span>Ingredients</p>
+          <h2 class="h2" id="ingredients-title">KNOW WHAT <em>GOES IN.</em></h2>
         </div>
-      </figure>
+        <p class="lead">A closer look at the formula behind the fizz.</p>
+      </header>
 
-      <div class="spec">
-        <p class="spec__head"><span>Per tablet</span><span class="spec__sub">Product facts</span></p>
-        <dl class="spec__qty rv">
-          <div class="qty"><dt>Apple Cider Vinegar</dt><dd><span class="qty__num">500<small>mg</small></span> per tablet<span class="qty__note">Brand describes it as ACV With The Mother.</span></dd></div>
-          <div class="qty"><dt>Pomegranate Extract</dt><dd><span class="qty__num">100<small>mg</small></span> per tablet</dd></div>
-          <div class="qty"><dt>Vitamin B6</dt><dd><span class="qty__num">1.9<small>mg</small></span> per tablet</dd></div>
-          <div class="qty"><dt>Vitamin B12</dt><dd><span class="qty__num">1.1<small>mcg</small></span> per tablet</dd></div>
-        </dl>
-        <dl class="spec__rows rv">
-          <div><dt>Green Apple flavour</dt><dd>A refreshing alternative to sour liquid vinegar.</dd></div>
-          <div class="spec__sodium"><dt>Sodium</dt><dd><strong>342 mg</strong> per tablet; two tablets provide 684 mg.</dd></div>
-        </dl>
+      <div class="ing__grid">
+        <div class="ing__art rv">
+          <figure class="ing__fruit ing__fruit--apple">
+            <img src="assets/images/ingredient-apple.jpg" alt="Fresh green apple with cut slices and natural water droplets" width="1200" height="801" loading="lazy" decoding="async">
+            <figcaption>Green Apple <span>Fresh flavour inspiration</span></figcaption>
+          </figure>
+          <figure class="ing__fruit ing__fruit--pomegranate">
+            <img src="assets/images/ingredient-pomegranate.jpg" alt="Cut pomegranate revealing its ruby-red seeds" width="1200" height="1799" loading="lazy" decoding="async">
+            <figcaption>Pomegranate <span>100 mg extract per tablet</span></figcaption>
+          </figure>
+        </div>
 
-        <!-- Safety information: always visible, never behind hover or animation -->
-        <div class="notice" role="note">
-          <p><strong>Contains sodium — 342 mg per tablet.</strong> Those on a low-sodium diet should seek professional advice.</p>
-          <p class="notice__small">The shared batch Certificate of Analysis does not separately verify The Mother.</p>
+        <div class="spec rv">
+          <p class="spec__head"><span>Per tablet</span><span class="spec__sub">Product facts</span></p>
+          <dl class="spec__qty">
+            <div class="qty"><dt>Apple Cider Vinegar</dt><dd><span class="qty__num">500<small>mg</small></span> per tablet<span class="qty__note">Brand describes it as ACV With The Mother.</span></dd></div>
+            <div class="qty"><dt>Pomegranate Extract</dt><dd><span class="qty__num">100<small>mg</small></span> per tablet</dd></div>
+            <div class="qty"><dt>Vitamin B6</dt><dd><span class="qty__num">1.9<small>mg</small></span> per tablet</dd></div>
+            <div class="qty"><dt>Vitamin B12</dt><dd><span class="qty__num">1.1<small>mcg</small></span> per tablet</dd></div>
+          </dl>
+          <dl class="spec__rows">
+            <div><dt>Green Apple flavour</dt><dd>A refreshing alternative to sour liquid vinegar.</dd></div>
+            <div class="spec__sodium"><dt>Sodium</dt><dd><strong>342 mg</strong> per tablet; two tablets provide 684 mg.</dd></div>
+          </dl>
+
+          <!-- Safety information: always visible, never behind hover or animation -->
+          <div class="notice" role="note">
+            <p><strong>Contains sodium — 342 mg per tablet.</strong> Those on a low-sodium diet should seek professional advice.</p>
+            <p class="notice__small">The shared batch Certificate of Analysis does not separately verify The Mother.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -453,76 +503,81 @@
 <!-- ============================================================
      07 / LIFESTYLE
      ============================================================ -->
-<section class="sec sec--green lifestyle" id="lifestyle" aria-labelledby="lifestyle-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">07</span><span aria-hidden="true">/</span>LIFESTYLE</p></div>
+<section class="sec lifestyle" id="lifestyle" aria-labelledby="lifestyle-title">
   <div class="wrap">
-    <header class="sec-head sec-head--center rv">
-      <h2 class="h2 h2--serif" id="lifestyle-title">FITS YOUR <em>KIND OF DAY.</em></h2>
-      <p class="lead">Before a main meal, at your desk, or on the move — make space for a simple, refreshing routine.</p>
-    </header>
-
-    <div class="lifestyle-editorial">
-      <figure class="lifestyle-photo rv rv--media">
-        <span class="reveal light"><img class="zoom zoom--photo" src="assets/images/lifestyle-workspace.webp" alt="XETAFIT tube and a refreshing drink on a sunlit table beside a notebook in a modern home workspace" width="1536" height="1024" loading="lazy" decoding="async"></span>
+    <div class="life">
+      <figure class="life__photo rv">
+        <span class="reveal light"><img src="assets/images/lifestyle-workspace.webp" srcset="assets/images/lifestyle-workspace-768.webp 768w, assets/images/lifestyle-workspace.webp 1536w" sizes="(min-width: 1100px) 66vw, 100vw" alt="XETAFIT tube and a refreshing drink on a sunlit table beside a notebook in a modern home workspace" width="1536" height="1024" loading="lazy" decoding="async"></span>
       </figure>
-      <ol class="lifestyle-routines rv rv--stagger">
-        <li><span aria-hidden="true">01</span><h3>Before a main meal</h3></li>
-        <li><span aria-hidden="true">02</span><h3>At your desk</h3></li>
-        <li><span aria-hidden="true">03</span><h3>On the move</h3></li>
-      </ol>
+
+      <div class="life__card rv">
+        <p class="eyebrow"><span class="eyebrow__n">07</span>Lifestyle</p>
+        <h2 class="h2 h2--serif" id="lifestyle-title">FITS YOUR <em>KIND OF DAY.</em></h2>
+        <p class="lead">Before a main meal, at your desk, or on the move — make space for a simple, refreshing routine.</p>
+        <ol class="routines">
+          <li><span aria-hidden="true">01</span><h3>Before a main meal</h3></li>
+          <li><span aria-hidden="true">02</span><h3>At your desk</h3></li>
+          <li><span aria-hidden="true">03</span><h3>On the move</h3></li>
+        </ol>
+      </div>
     </div>
 
-    <p class="fact-note fact-note--center">Whenever you enjoy it, follow the current product label for recommended use.</p>
+    <p class="note">Whenever you enjoy it, follow the current product label for recommended use.</p>
   </div>
 </section>
 
 <!-- ============================================================
-     08 / COMPARISON
+     08 / COMPARISON   (burgundy panel)
      ============================================================ -->
-<section class="sec sec--cream compare" id="compare" aria-labelledby="compare-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">08</span><span aria-hidden="true">/</span>COMPARISON</p></div>
-  <div class="wrap">
-    <header class="sec-head sec-head--center rv">
-      <h2 class="h2" id="compare-title">A SIMPLER WAY <em>TO ENJOY ACV.</em></h2>
-    </header>
+<section class="sec sec--panel compare" id="compare" aria-labelledby="compare-title">
+  <div class="panel panel--burgundy">
+    <div class="wrap">
+      <header class="sec-head sec-head--center rv">
+        <p class="eyebrow"><span class="eyebrow__n">08</span>Comparison</p>
+        <h2 class="h2" id="compare-title">A SIMPLER WAY <em>TO ENJOY ACV.</em></h2>
+      </header>
 
-    <div class="versus">
-      <article class="versus__side versus__side--old rv">
-        <h3 class="versus__label">Traditional Liquid ACV</h3>
-        <figure class="versus__visual versus__visual--old">
-          <img class="zoom zoom--photo" src="assets/images/comparison-vinegar.webp" alt="A glass bottle of traditional amber apple cider vinegar beside a small measuring glass" width="1536" height="1024" loading="lazy" decoding="async">
-        </figure>
-        <ul class="versus__points">
-          <li>Measure and dilute liquid vinegar.</li>
-          <li>Naturally sharp vinegar taste.</li>
-          <li>Carry a liquid bottle.</li>
-        </ul>
-      </article>
-      <article class="versus__side versus__side--new rv">
-        <h3 class="versus__label">XETAFIT Effervescent Tablets</h3>
-        <figure class="versus__visual versus__visual--new">
-          <img class="comparison-photo zoom zoom--photo" src="assets/images/lifestyle-workspace.webp" alt="The actual XETAFIT tablet tube beside a glass of prepared drink in a sunlit workspace" width="1536" height="1024" loading="lazy" decoding="async">
-        </figure>
-        <ul class="versus__points">
-          <li>Drop a pre-portioned tablet into water.</li>
-          <li>Enjoy a fruit-flavoured fizzy drink.</li>
-          <li>Convenient tablet tube.</li>
-        </ul>
-      </article>
+      <div class="versus">
+        <article class="versus__side versus__side--old rv">
+          <figure class="versus__photo">
+            <img src="assets/images/comparison-vinegar.webp" alt="A glass bottle of traditional amber apple cider vinegar beside a small measuring glass" width="1536" height="1024" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="versus__label">Traditional Liquid ACV</h3>
+          <ul class="versus__points">
+            <li>Measure and dilute liquid vinegar.</li>
+            <li>Naturally sharp vinegar taste.</li>
+            <li>Carry a liquid bottle.</li>
+          </ul>
+        </article>
+
+        <span class="versus__vs" aria-hidden="true">vs</span>
+
+        <article class="versus__side versus__side--new rv">
+          <figure class="versus__photo">
+            <img src="assets/images/hero-tube.webp" alt="Original upright XETAFIT Apple Cider Vinegar effervescent tablet tube" width="360" height="1369" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="versus__label">XETAFIT Effervescent Tablets</h3>
+          <ul class="versus__points">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Drop a pre-portioned tablet into water.</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Enjoy a fruit-flavoured fizzy drink.</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Convenient tablet tube.</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="note note--center">A comparison of preparation and convenience — not a claim of superior medical benefits.</p>
     </div>
-
-    <p class="compare__note">A comparison of preparation and convenience — not a claim of superior medical benefits.</p>
   </div>
 </section>
 
 <!-- ============================================================
      09 / REVIEWS
      ============================================================ -->
-<section class="sec sec--coral reviews" id="reviews" aria-labelledby="reviews-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">09</span><span aria-hidden="true">/</span>REVIEWS</p></div>
+<section class="sec reviews" id="reviews" aria-labelledby="reviews-title">
   <div class="wrap">
-    <header class="sec-head sec-head--split reviews__head rv">
+    <header class="sec-head sec-head--split rv">
       <div>
+        <p class="eyebrow"><span class="eyebrow__n">09</span>Reviews</p>
         <h2 class="h2" id="reviews-title">REAL ROUTINES. <em>REAL FEEDBACK.</em></h2>
       </div>
       <p class="lead">Customers talk about flavour, ease of preparation and everyday convenience.</p>
@@ -533,38 +588,36 @@
          from XETAFIT / Flipkart / Amazon. Keep the exact published text, the
          reviewer name as displayed, the platform and the date. Never edit,
          combine or invent reviews, ratings, counts or health results. -->
-    <div>
-      <ul class="review-track rv" tabindex="0" aria-label="Review placeholders — scroll horizontally on small screens">
-        <li class="review review--placeholder">
-          <p class="review__tag">Placeholder · Slot 01 · Flavour</p>
-          <span class="review__mark" aria-hidden="true">“</span>
-          <p class="review__body">A verified customer review about the flavour will appear here, word for word as published.</p>
-          <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
-        </li>
-        <li class="review review--placeholder">
-          <p class="review__tag">Placeholder · Slot 02 · Preparation</p>
-          <span class="review__mark" aria-hidden="true">“</span>
-          <p class="review__body">A verified customer review about ease of preparation will appear here, word for word as published.</p>
-          <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
-        </li>
-        <li class="review review--placeholder">
-          <p class="review__tag">Placeholder · Slot 03 · Convenience</p>
-          <span class="review__mark" aria-hidden="true">“</span>
-          <p class="review__body">A verified customer review about everyday convenience will appear here, word for word as published.</p>
-          <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
-        </li>
-        <li class="review review--placeholder">
-          <p class="review__tag">Placeholder · Slot 04</p>
-          <span class="review__mark" aria-hidden="true">“</span>
-          <p class="review__body">Additional verified, permission-cleared review.</p>
-          <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
-        </li>
-      </ul>
-    </div>
+    <ul class="review-grid rv" aria-label="Review placeholders">
+      <li class="review review--placeholder">
+        <p class="review__tag">Placeholder · Slot 01 · Flavour</p>
+        <span class="review__mark" aria-hidden="true">“</span>
+        <p class="review__body">A verified customer review about the flavour will appear here, word for word as published.</p>
+        <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
+      </li>
+      <li class="review review--placeholder">
+        <p class="review__tag">Placeholder · Slot 02 · Preparation</p>
+        <span class="review__mark" aria-hidden="true">“</span>
+        <p class="review__body">A verified customer review about ease of preparation will appear here, word for word as published.</p>
+        <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
+      </li>
+      <li class="review review--placeholder">
+        <p class="review__tag">Placeholder · Slot 03 · Convenience</p>
+        <span class="review__mark" aria-hidden="true">“</span>
+        <p class="review__body">A verified customer review about everyday convenience will appear here, word for word as published.</p>
+        <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
+      </li>
+      <li class="review review--placeholder">
+        <p class="review__tag">Placeholder · Slot 04</p>
+        <span class="review__mark" aria-hidden="true">“</span>
+        <p class="review__body">Additional verified, permission-cleared review.</p>
+        <p class="review__meta">Reviewer name as displayed · Platform · Date</p>
+      </li>
+    </ul>
     <p class="dev-note">Development placeholders — no customer reviews are shown until verified, permission-cleared reviews are supplied.</p>
 
     <p class="reviews__cta">
-      <a class="btn" href="#buy">Get your 4-pack
+      <a class="btn btn--gold btn--lg" href="#buy">Get your 4-pack
         <span class="btn__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
       </a>
     </p>
@@ -572,91 +625,96 @@
 </section>
 
 <!-- ============================================================
-     10 / TEST REPORT
+     10 / QUALITY (test report)   (burgundy panel)
      ============================================================ -->
-<section class="sec sec--green quality" id="quality" aria-labelledby="quality-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">10</span><span aria-hidden="true">/</span>QUALITY</p></div>
-  <div class="wrap quality__grid">
-    <figure class="doc rv rv--media">
-      <span class="doc__stack" aria-hidden="true"></span>
-      <a class="doc__paper" href="certificate.html" tabindex="-1" aria-hidden="true">
-        <span class="doc__crop"><img class="zoom" src="assets/images/certificate-crop.webp" alt="" width="900" height="738" loading="lazy" decoding="async"></span>
-      </a>
-      <figcaption>Original Certificate of Analysis · Batch NX3649 · page 1 (top) · <a href="assets/documents/xetafit-certificate-NX3649.pdf" target="_blank" rel="noopener" type="application/pdf">Original PDF<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
-    </figure>
-
-    <div class="quality__copy rv">
-      <h2 class="h2" id="quality-title">QUALITY YOU CAN <em>LOOK INTO.</em></h2>
-      <p class="lead">Explore the available manufacturer Certificate of Analysis for XETAFIT Green Apple Effervescent Tablets.</p>
-      <dl class="spec-list">
-        <div><dt>Manufacturer</dt><dd>Nexlife Nutrascience</dd></div>
-        <div><dt>Batch</dt><dd>NX3649</dd></div>
-        <div><dt>Report dated</dt><dd>29 August 2025</dd></div>
-        <div><dt>Status</dt><dd>Approved under in-house specifications</dd></div>
-        <div><dt>Disintegration</dt><dd>2 minutes 20 seconds <span class="muted">(specification: no more than 5 minutes)</span></dd></div>
-      </dl>
-      <p class="fact-note">Batch-specific manufacturer report; not a blanket independent certification or clinical proof.</p>
-      <p>
-        <a class="btn btn--secondary" href="certificate.html">View certificate
-          <span class="btn__icon" aria-hidden="true"><svg><use href="#i-doc"/></svg></span>
+<section class="sec sec--panel quality" id="quality" aria-labelledby="quality-title">
+  <div class="panel panel--burgundy">
+    <div class="wrap quality__grid">
+      <figure class="doc rv">
+        <span class="doc__stack" aria-hidden="true"></span>
+        <a class="doc__paper" href="certificate.html" tabindex="-1" aria-hidden="true">
+          <span class="doc__crop"><img class="zoom" src="assets/images/certificate-crop.webp" alt="" width="900" height="738" loading="lazy" decoding="async"></span>
         </a>
-      </p>
+        <figcaption>Original Certificate of Analysis · Batch NX3649 · page 1 (top) · <a href="assets/documents/xetafit-certificate-NX3649.pdf" target="_blank" rel="noopener" type="application/pdf">Original PDF<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+      </figure>
+
+      <div class="quality__copy rv">
+        <p class="eyebrow"><span class="eyebrow__n">10</span>Quality</p>
+        <h2 class="h2" id="quality-title">QUALITY YOU CAN <em>LOOK INTO.</em></h2>
+        <p class="lead">Explore the available manufacturer Certificate of Analysis for XETAFIT Green Apple Effervescent Tablets.</p>
+        <dl class="spec-list">
+          <div><dt>Manufacturer</dt><dd>Nexlife Nutrascience</dd></div>
+          <div><dt>Batch</dt><dd>NX3649</dd></div>
+          <div><dt>Test report</dt><dd>NXL/2508163</dd></div>
+          <div><dt>Report dated</dt><dd>29 August 2025</dd></div>
+          <div><dt>Status</dt><dd>Approved under in-house specifications</dd></div>
+          <div><dt>Disintegration</dt><dd>2 minutes 20 seconds <span class="muted">(specification: no more than 5 minutes)</span></dd></div>
+        </dl>
+        <p class="note">Batch-specific manufacturer report; not a blanket independent certification or clinical proof.</p>
+        <div class="cta-row">
+          <a class="btn btn--cream btn--lg" href="certificate.html">View certificate
+            <span class="btn__icon" aria-hidden="true"><svg><use href="#i-doc"/></svg></span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     11 / FAQ + IMPORTANT PRODUCT INFORMATION
+     11 / FAQ + IMPORTANT PRODUCT INFORMATION   (cream panel)
      ============================================================ -->
-<section class="sec sec--cream faq" id="faq" aria-labelledby="faq-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">11</span><span aria-hidden="true">/</span>FAQ</p></div>
-  <div class="wrap faq__grid">
-    <div class="faq__side">
-      <div class="rv">
-        <h2 class="h2" id="faq-title">GOOD QUESTIONS. <em>CLEAR ANSWERS.</em></h2>
+<section class="sec sec--panel faq" id="faq" aria-labelledby="faq-title">
+  <div class="panel panel--cream">
+    <div class="wrap faq__grid">
+      <div class="faq__side">
+        <div class="rv">
+          <p class="eyebrow eyebrow--ink"><span class="eyebrow__n">11</span>FAQ</p>
+          <h2 class="h2" id="faq-title">GOOD QUESTIONS. <em>CLEAR ANSWERS.</em></h2>
+        </div>
+        <!-- Safety copy stays visible at all times (never animated, never collapsed) -->
+        <aside class="safety" aria-labelledby="safety-title">
+          <h3 id="safety-title">Important product information</h3>
+          <ul>
+            <li>Not recommended for children, pregnant or lactating women, or individuals with medical conditions unless advised by a healthcare professional.</li>
+            <li>Seek professional advice if taking medication.</li>
+            <li>People on a low-sodium diet should seek advice due to the sodium content (342 mg per tablet).</li>
+            <li>Follow the current product label for daily dosage.</li>
+            <li>Do not exceed the recommended daily limit.</li>
+          </ul>
+        </aside>
       </div>
-      <!-- Safety copy stays visible at all times (never animated, never collapsed) -->
-      <aside class="safety" aria-labelledby="safety-title">
-        <h3 id="safety-title">Important product information</h3>
-        <ul>
-          <li>Not recommended for children, pregnant or lactating women, or individuals with medical conditions unless advised by a healthcare professional.</li>
-          <li>Seek professional advice if taking medication.</li>
-          <li>People on a low-sodium diet should seek advice due to the sodium content (342 mg per tablet).</li>
-          <li>Follow the current product label for daily dosage.</li>
-          <li>Do not exceed the recommended daily limit.</li>
-        </ul>
-      </aside>
-    </div>
 
-    <div class="faq__list rv rv--stagger">
-      <details class="qa" name="faq" open>
-        <summary>What do I get?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Pack of 4: four tubes with 15 tablets each — 60 tablets total.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>How do I prepare it?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Dissolve one tablet completely in 200–250 ml of water before drinking.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>What is the sodium content?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>342 mg per tablet, or 684 mg for two tablets. If you limit sodium, check with your healthcare professional.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>Who should avoid it or seek advice?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Not recommended for children, pregnant or lactating women, or people with medical conditions unless advised by a healthcare professional. Seek advice if taking medication.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>How often should I take it?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Follow the currently approved product label. Do not exceed the stated daily limit.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>How should it be stored?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Keep the tube tightly closed in a cool, dry place.</p></div>
-      </details>
-      <details class="qa" name="faq">
-        <summary>Where can I see quality details?<span class="qa__icon" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>Open the batch-specific <a href="certificate.html">Certificate of Analysis</a>.</p></div>
-      </details>
+      <div class="faq__list rv">
+        <details class="qa" name="faq" open>
+          <summary>What do I get?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Pack of 4: four tubes with 15 tablets each — 60 tablets total.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>How do I prepare it?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Dissolve one tablet completely in 200–250 ml of water before drinking.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>What is the sodium content?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>342 mg per tablet, or 684 mg for two tablets. If you limit sodium, check with your healthcare professional.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>Who should avoid it or seek advice?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Not recommended for children, pregnant or lactating women, or people with medical conditions unless advised by a healthcare professional. Seek advice if taking medication.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>How often should I take it?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Follow the currently approved product label. Do not exceed the stated daily limit.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>How should it be stored?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Keep the tube tightly closed in a cool, dry place.</p></div>
+        </details>
+        <details class="qa" name="faq">
+          <summary>Where can I see quality details?<span class="qa__icon" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Open the batch-specific <a href="certificate.html">Certificate of Analysis</a>.</p></div>
+        </details>
+      </div>
     </div>
   </div>
 </section>
@@ -664,24 +722,27 @@
 <!-- ============================================================
      12 / FINAL PRODUCT PHOTOGRAPH + CTA
      ============================================================ -->
-<section class="sec sec--coral final" id="final" aria-labelledby="final-title">
-  <div class="wrap section-id rv"><p class="label"><span class="label__n">12</span><span aria-hidden="true">/</span>FINAL CTA</p></div>
+<section class="sec final" id="final" aria-labelledby="final-title">
+  <p class="bigtype bigtype--final" aria-hidden="true"><span>Fizz. Sip. Repeat.</span></p>
+  <span class="cross cross--e" aria-hidden="true"></span>
+
   <div class="wrap">
     <div class="final-card">
       <div class="final__copy rv">
-        <h2 class="h2" id="final-title">MAKE EVERY <em>SIP COUNT.</em></h2>
+        <p class="eyebrow"><span class="eyebrow__n">12</span>Your 4-pack</p>
+        <h2 class="h2 final__title" id="final-title">MAKE EVERY <em>SIP COUNT.</em></h2>
         <p class="lead">One easy ACV routine. A refreshing Green Apple &amp; Pomegranate fizz.</p>
         <p class="body">Bring home the XETAFIT four-pack and make it part of your day.</p>
         <div class="cta-row">
-          <a class="btn" href="#buy">Buy now
+          <a class="btn btn--gold btn--lg" href="#buy">Buy now
             <span class="btn__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
           </a>
-          <p class="pack-chip pack-chip--onDark"><strong>Pack of 4</strong><span>4 tubes &times; 15 tablets</span><span>60 tablets total</span></p>
+          <p class="pack-tag"><strong>Pack of 4</strong><span>60 tablets</span></p>
         </div>
       </div>
 
-      <figure class="final__photo rv rv--media">
-        <span class="reveal light"><span class="zoom zoom--soft"><img class="breathe" src="assets/images/final-product-drink.webp" alt="Four XETAFIT tubes presented together beside a chilled, lightly green drink with natural condensation" width="1536" height="1024" loading="lazy" decoding="async"></span></span>
+      <figure class="final__photo rv">
+        <span class="reveal light"><span class="zoom zoom--soft"><img class="breathe" src="assets/images/final-product-drink.webp" srcset="assets/images/final-product-drink-768.webp 768w, assets/images/final-product-drink.webp 1536w" sizes="(min-width: 960px) 52vw, 100vw" alt="Four XETAFIT tubes presented together beside a chilled, lightly green drink with natural condensation" width="1536" height="1024" loading="lazy" decoding="async"></span></span>
       </figure>
     </div>
   </div>
@@ -691,7 +752,7 @@
 
 <footer class="site-footer">
   <div class="wrap site-footer__inner">
-    <p class="site-footer__brand">XETAFIT<span>Zeal it. Feel it.</span></p>
+    <a class="site-footer__brand" href="#top" aria-label="XETAFIT — back to top"><img src="assets/images/xetafit-logo.png" alt="XETAFIT" width="256" height="68" loading="lazy" decoding="async"></a>
     <ul class="site-footer__links">
       <li><a href="#buy">Pack of 4</a></li>
       <li><a href="#faq">FAQ &amp; product information</a></li>
@@ -702,5 +763,6 @@
   </div>
 </footer>
 
+<script src="js/benefits.js" defer></script>
 </body>
 </html>
