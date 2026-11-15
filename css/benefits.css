@@ -1,30 +1,223 @@
-/* Section 05 only. Readable, open-product composition without JavaScript. */
-.benefits .formula__art { container-type: size; }
-.benefit-product { display: block; position: absolute; inset: 0; isolation: isolate; }
-.benefit-sprite { display: block; background-image: url('../assets/images/switch-open-product-layers.png'); background-repeat: no-repeat; }
-.benefit-body { position: absolute; z-index: 2; left: 50%; top: 28%; height: 70%; aspect-ratio: 340 / 1170; translate: -50% 0; }
-.benefit-cap { display: block; position: absolute; z-index: 4; left: 50%; top: 27%; width: 20.34cqh; aspect-ratio: 460 / 335; translate: -50% 0; }
-.benefit-cap .benefit-sprite { width: 100%; height: 100%; transform: rotate(-4deg); }
-.benefit-seal { position: absolute; z-index: 5; left: 50%; top: 26.5%; width: 21.8cqh; height: auto; translate: -50% 0; pointer-events: none; }
-.benefit-cap { transform: translateY(-27cqh); }
-.benefit-seal { display: none; }
-.benefits--animated .benefit-seal { display: block; }
-.benefit-flight { display: block; transform: translate(12cqh, -15cqh); position: absolute; left: 50%; top: 32%; width: 11.5cqh; aspect-ratio: 310 / 250; translate: -50% -50%; z-index: 1; }
-.benefit-tablet { width: 100%; height: 100%; }
-.benefit-shadow { position: absolute; width: 54%; height: auto; left: 50%; bottom: -2%; translate: -50% 0; opacity: .65; }
-.benefit-body { background-size: 368.82353% 107.17949%; background-position: 18.05252% 71.42857%; }
-.benefit-cap .benefit-sprite { background-size: 272.60870% 374.32836%; background-position: 85.64232% 19.58651%; }
-.benefit-tablet { background-size: 404.51613% 501.60000%; background-position: 80.50847% 77.19124%; }
+/* ==========================================================================
+   05 BENEFITS: the cap unscrews, one tablet rises out of the tube, six benefits
+   appear. HTML + CSS only.
 
-/* No tall scroll stage, sticky panel, or typography/CTA scale overrides. */
-.benefits .formula__art { height: clamp(400px, 105vw, 500px); }
+   Stage (.bx): one coordinate system for every layer. It is a size container,
+   so 1cqh / 1cqw are 1% of the stage and all motion scales with it. Layers, back
+   to front: floor shadow · inside of the tube (.bx__inner) · tablet · tube with
+   the FRONT half of its rim (.bx__tube, opening transparent) · cap. While the
+   tablet is inside, the tube's front wall hides its lower part; once out, it
+   sits in front of the far rim. The tube never moves (no scroll scaling here).
+
+   Built by tools/build_benefits_layers.py: the images, their placement and the
+   keyframes in the @generated block (cap: thread-driven lift + 6 rotation frames
+   that repeat every bridge of the cap's groove; tablet: rise + 16 turn frames).
+
+   The headline rolls up with the site's reveal system (animations.css: .rv,
+   .reveal-word); benefits 01 -> 06 start as the tablet clears the rim: number,
+   title rolling up word by word, description.
+
+   Default styles are the FINAL composition (cap off, tablet hovering, benefits
+   visible): that is what shows without scroll-driven animation support, with
+   prefers-reduced-motion, and in print. The sequence plays once per page view.
+   ========================================================================== */
+
+.benefits .formula__art { height: clamp(420px, 108vw, 520px); }
 @media (min-width: 960px) {
-  .benefits .formula__art { height: clamp(543px, 45vw, 657px); }
+  .benefits .formula__art { height: clamp(560px, 46vw, 680px); }
 }
-@keyframes benefit-single-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(2deg); }
+
+.bx {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  translate: -50% 0;
+  container-type: size;
+  isolation: isolate;
+  pointer-events: none;
 }
+.bx > * { position: absolute; display: block; }
+.bx img { display: block; max-width: none; }
+.bx__inner, .bx__tube, .bx__shadow { width: 100%; height: 100%; }
+.bx__shadow { opacity: .6; }
+.bx__tab-rise, .bx__tab-float, .bx__tab-img, .bx__cap-img { display: block; width: 100%; height: 100%; }
+.bx__tab-img, .bx__cap-img { overflow: clip; }                 /* one frame of each strip */
+.bx__tab-img { filter: drop-shadow(0 1.2cqh .9cqh rgba(60, 0, 12, .22)); }   /* static: rasterised once */
+.bx__cap-strip { width: 100%; }
+.bx__tab-strip { height: 100%; }
+
+/* @generated:begin by tools/build_benefits_layers.py -- do not edit by hand */
+.bx { aspect-ratio: 384 / 1832; }
+.bx__inner { left: 7.292%; top: 22.871%; width: 85.417%; height: 4.749%; }
+.bx__tube { left: 3.906%; top: 25.000%; width: 92.188%; height: 72.162%; }
+.bx__shadow { left: -18.740%; top: 90.639%; width: 137.481%; height: 8.351%; }
+.bx__tab { left: -0.187%; top: 7.694%; width: 100.375%; height: 21.039%; }
+.bx__cap { left: 3.125%; top: 22.271%; width: 93.750%; height: 8.024%; translate: 1.562cqw -20.338cqh; rotate: -6deg; }
+.bx__cap-strip { height: 600%; }
+.bx__tab-strip { width: 1600%; translate: -93.7500% 0; }
+.benefits {
+  --bx-cap-delay: 0.1s; --bx-cap-dur: 1.4s;
+  --bx-tab-delay: 1.06s; --bx-tab-dur: 0.84s;
+  --bx-turn-delay: 1.522s; --bx-turn-dur: 0.378s;
+  --bx-facts-delay: 1.46s; --bx-facts-step: 0.09s;
+  --bx-float-delay: 1.90s; --bx-float-dur: 5.2s;
+}
+@keyframes bx-cap {
+  0.00% { translate: 0.000cqw -0.000cqh; rotate: 0deg; }
+  2.38% { translate: 0.000cqw -0.002cqh; rotate: 0deg; }
+  4.76% { translate: 0.000cqw -0.007cqh; rotate: 0deg; }
+  7.14% { translate: 0.000cqw -0.015cqh; rotate: 0deg; }
+  9.52% { translate: 0.000cqw -0.027cqh; rotate: 0deg; }
+  11.90% { translate: 0.000cqw -0.041cqh; rotate: 0deg; }
+  14.29% { translate: 0.000cqw -0.059cqh; rotate: 0deg; }
+  16.67% { translate: 0.000cqw -0.080cqh; rotate: 0deg; }
+  19.05% { translate: 0.000cqw -0.104cqh; rotate: 0deg; }
+  21.43% { translate: 0.000cqw -0.130cqh; rotate: 0deg; }
+  23.81% { translate: 0.000cqw -0.159cqh; rotate: 0deg; }
+  26.19% { translate: 0.000cqw -0.191cqh; rotate: 0deg; }
+  28.57% { translate: 0.000cqw -0.225cqh; rotate: 0deg; }
+  30.95% { translate: 0.000cqw -0.261cqh; rotate: 0deg; }
+  33.33% { translate: 0.000cqw -0.298cqh; rotate: 0deg; }
+  35.71% { translate: 0.000cqw -0.338cqh; rotate: 0deg; }
+  38.10% { translate: 0.000cqw -0.379cqh; rotate: 0deg; }
+  40.48% { translate: 0.000cqw -0.421cqh; rotate: 0deg; }
+  42.86% { translate: 0.000cqw -0.464cqh; rotate: 0deg; }
+  45.24% { translate: 0.000cqw -0.508cqh; rotate: 0deg; }
+  47.62% { translate: 0.000cqw -0.552cqh; rotate: 0deg; }
+  50.00% { translate: 0.000cqw -0.597cqh; rotate: 0deg; }
+  52.38% { translate: 0.000cqw -0.641cqh; rotate: 0deg; }
+  54.76% { translate: 0.000cqw -0.686cqh; rotate: 0deg; }
+  57.14% { translate: 0.000cqw -0.730cqh; rotate: 0deg; }
+  59.52% { translate: 0.000cqw -0.773cqh; rotate: 0deg; }
+  61.90% { translate: 0.000cqw -0.815cqh; rotate: 0deg; }
+  64.29% { translate: 0.008cqw -0.973cqh; rotate: -0.03117deg; }
+  66.67% { translate: 0.046cqw -1.533cqh; rotate: -0.1759deg; }
+  69.05% { translate: 0.113cqw -2.455cqh; rotate: -0.4329deg; }
+  71.43% { translate: 0.206cqw -3.678cqh; rotate: -0.7922deg; }
+  73.81% { translate: 0.323cqw -5.145cqh; rotate: -1.239deg; }
+  76.19% { translate: 0.457cqw -6.794cqh; rotate: -1.756deg; }
+  78.57% { translate: 0.605cqw -8.567cqh; rotate: -2.323deg; }
+  80.95% { translate: 0.760cqw -10.406cqh; rotate: -2.917deg; }
+  83.33% { translate: 0.915cqw -12.250cqh; rotate: -3.514deg; }
+  85.71% { translate: 1.065cqw -14.040cqh; rotate: -4.09deg; }
+  88.10% { translate: 1.204cqw -15.718cqh; rotate: -4.623deg; }
+  90.48% { translate: 1.326cqw -17.223cqh; rotate: -5.092deg; }
+  92.86% { translate: 1.426cqw -18.497cqh; rotate: -5.477deg; }
+  95.24% { translate: 1.501cqw -19.480cqh; rotate: -5.764deg; }
+  97.62% { translate: 1.547cqw -20.114cqh; rotate: -5.94deg; }
+  100.00% { translate: 1.562cqw -20.338cqh; rotate: -6deg; }
+}
+@keyframes bx-spin {
+  0.00%{translate:0 0.0000%} 8.33%{translate:0 -16.6667%} 10.71%{translate:0 -33.3333%} 13.10%{translate:0 -50.0000%}
+  15.48%{translate:0 -66.6667%} 16.67%{translate:0 -83.3333%} 19.05%{translate:0 0.0000%} 20.24%{translate:0 -16.6667%}
+  21.43%{translate:0 -33.3333%} 22.62%{translate:0 -50.0000%} 23.81%{translate:0 -66.6667%} 25.00%{translate:0 -83.3333%}
+  26.19%{translate:0 0.0000%} 27.38%{translate:0 -16.6667%} 28.57%{translate:0 -33.3333%} 29.76%{translate:0 -50.0000%}
+  30.95%{translate:0 -83.3333%} 32.14%{translate:0 0.0000%} 33.33%{translate:0 -16.6667%} 34.52%{translate:0 -33.3333%}
+  35.71%{translate:0 -66.6667%} 36.90%{translate:0 -83.3333%} 38.10%{translate:0 0.0000%} 39.29%{translate:0 -33.3333%}
+  40.48%{translate:0 -50.0000%} 41.67%{translate:0 -66.6667%} 42.86%{translate:0 0.0000%} 44.05%{translate:0 -16.6667%}
+  45.24%{translate:0 -50.0000%} 46.43%{translate:0 -66.6667%} 47.62%{translate:0 0.0000%} 48.81%{translate:0 -16.6667%}
+  50.00%{translate:0 -50.0000%} 51.19%{translate:0 -66.6667%} 52.38%{translate:0 -83.3333%} 53.57%{translate:0 -16.6667%}
+  54.76%{translate:0 -33.3333%} 55.95%{translate:0 -66.6667%} 57.14%{translate:0 -83.3333%} 58.33%{translate:0 -16.6667%}
+  59.52%{translate:0 -33.3333%} 60.71%{translate:0 -50.0000%} 61.90%{translate:0 -83.3333%} 63.10%{translate:0 0.0000%}
+  64.29%{translate:0 -16.6667%} 65.48%{translate:0 -50.0000%} 66.67%{translate:0 -66.6667%} 67.86%{translate:0 -83.3333%}
+  69.05%{translate:0 0.0000%} 70.24%{translate:0 -33.3333%} 71.43%{translate:0 -50.0000%} 72.62%{translate:0 -66.6667%}
+  73.81%{translate:0 -83.3333%} 75.00%{translate:0 0.0000%} 76.19%{translate:0 -16.6667%} 77.38%{translate:0 -33.3333%}
+  78.57%{translate:0 -50.0000%} 79.76%{translate:0 -66.6667%} 80.95%{translate:0 -83.3333%} 82.14%{translate:0 0.0000%}
+  84.52%{translate:0 -16.6667%} 85.71%{translate:0 -33.3333%} 88.10%{translate:0 -50.0000%} 90.48%{translate:0 -66.6667%}
+  92.86%{translate:0 -83.3333%} 100.00%{translate:0 0.0000%}
+}
+@keyframes bx-tab {
+  0.00% { translate: 0 13.031cqh; }
+  4.00% { translate: 0 13.028cqh; }
+  8.00% { translate: 0 13.005cqh; }
+  12.00% { translate: 0 12.941cqh; }
+  16.00% { translate: 0 12.818cqh; }
+  20.00% { translate: 0 12.614cqh; }
+  24.00% { translate: 0 12.311cqh; }
+  28.00% { translate: 0 11.887cqh; }
+  32.00% { translate: 0 11.323cqh; }
+  36.00% { translate: 0 10.599cqh; }
+  40.00% { translate: 0 9.695cqh; }
+  44.00% { translate: 0 8.591cqh; }
+  48.00% { translate: 0 7.267cqh; }
+  52.00% { translate: 0 5.765cqh; }
+  56.00% { translate: 0 4.440cqh; }
+  60.00% { translate: 0 3.336cqh; }
+  64.00% { translate: 0 2.432cqh; }
+  68.00% { translate: 0 1.708cqh; }
+  72.00% { translate: 0 1.144cqh; }
+  76.00% { translate: 0 0.721cqh; }
+  80.00% { translate: 0 0.417cqh; }
+  84.00% { translate: 0 0.214cqh; }
+  88.00% { translate: 0 0.090cqh; }
+  92.00% { translate: 0 0.027cqh; }
+  96.00% { translate: 0 0.003cqh; }
+  100.00% { translate: 0 0.000cqh; }
+}
+@keyframes bx-tab-turn { from { translate: 0 0; } }
+/* @generated:end */
+
+@keyframes bx-float {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50%      { translate: 0 -1.15cqh; rotate: 2.2deg; }
+}
+
+/* order of the six benefits: 01-03 left, 04-06 right */
+.bfact:nth-child(2) { --i: 1; }
+.bfact:nth-child(3) { --i: 2; }
+.formula__col--r { --col: 3; }
+.bfact { --t: calc(var(--bx-facts-delay) + (var(--i, 0) + var(--col, 0)) * var(--bx-facts-step)); }
+
 @media (prefers-reduced-motion: no-preference) {
-  .benefits--settled .benefit-tablet { animation: benefit-single-float 5s ease-in-out infinite; }
+  /* the tablet keeps hovering (also where the entrance sequence is not supported) */
+  .bx__tab-float { animation: bx-float var(--bx-float-dur) ease-in-out var(--bx-float-delay) infinite; }
+
+  @supports (animation-timeline: view()) and (animation-range: entry 0% entry 1%) {
+    /* trigger (animations.css: @property --seen, @keyframes seen): --seen turns 1 once the
+       product block is 40% into the viewport, and stays 1 below it */
+    .formula {
+      animation: seen linear both;
+      animation-timeline: view();
+      animation-range: entry 40% entry 41%;
+    }
+    /* the sequence: it runs once and holds its final frame */
+    .bx__cap       { animation: bx-cap var(--bx-cap-dur) linear var(--bx-cap-delay) both; }
+    .bx__cap-strip { animation: bx-spin var(--bx-cap-dur) step-end var(--bx-cap-delay) both; }
+    .bx__tab-rise  { animation: bx-tab var(--bx-tab-dur) linear var(--bx-tab-delay) both; }
+    .bx__tab-strip { animation: bx-tab-turn var(--bx-turn-dur) steps(16, jump-none) var(--bx-turn-delay) both; }
+    /* each benefit: its number, then its title rolls up word by word, then the description */
+    .bfact > .bfact__n { animation: num-rise .8s var(--ease) var(--t) both; }
+    .bfact .w > span {
+      animation: word-roll var(--m-word) var(--ease) both;
+      animation-delay: calc(var(--t) + .08s + var(--w, 0) * .05s);
+    }
+    .bfact p { animation: fade-rise .75s var(--ease) both; animation-delay: calc(var(--t) + .22s); }
+
+    /* ...held on its first frame (cap closed, tablet inside, benefits hidden) only while a
+       style query positively confirms "not seen yet". A browser that cannot evaluate the
+       query never pauses: the sequence simply plays at load and is finished, fully visible,
+       by the time the reader gets here. Nothing can stay hidden. */
+    @container style(--seen: 0) {
+      .bx__cap, .bx__cap-strip, .bx__tab-rise, .bx__tab-strip, .bx__tab-float,
+      .bfact > .bfact__n, .bfact .w > span, .bfact p { animation-play-state: paused; }
+    }
+
+    /* phones and tablets: the benefits are stacked under the product, so each column
+       reveals itself when it scrolls into view instead of waiting for the tablet */
+    @media (max-width: 959px) {
+      .formula { animation: none; }
+      .formula__art, .formula__col {
+        animation: seen linear both;
+        animation-timeline: view();
+        animation-range: entry 40% entry 41%;
+      }
+      .formula__col { --col: 0; --bx-facts-delay: .05s; }
+    }
+    /* phones: simplified - the groove's bridges are about 1px here, so the rotation frames
+       are skipped; the cap still rises on its thread, lifts off and the tablet comes out */
+    @media (max-width: 639px) {
+      .bx__cap-strip { animation: none; }
+    }
+  }
 }
